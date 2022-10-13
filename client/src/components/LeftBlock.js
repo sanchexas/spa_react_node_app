@@ -1,16 +1,17 @@
 import './style.css';
 import logo from '../logo.svg';
+import {Link} from 'react-router-dom';
 
 function LeftBlock(){
     return(
         <div className="left__block">
         <div className="navblock__wrap">
             <img src={logo} alt="remeslo logo" className="logo"></img>
-            <div className="navigation">
-                <a href="" className="nav__link">магазин</a>
-                <a href="" className="nav__link">новинки</a>
-                <a href="" className="nav__link">мастерская</a>
-                <a href="" className="nav__link">о нас</a>
+            <div className="navigation"> 
+                <Link to="/" className="nav__link">новинки</Link>
+                <Link to="/catalog" className="nav__link">каталог</Link>
+                <Link to="/workshop" className="nav__link">мастерская</Link>
+                <Link to="/about" className="nav__link">о нас</Link>
             </div>
             <div className="nav__media">
                 <a href="" >
