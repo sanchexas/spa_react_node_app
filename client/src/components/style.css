@@ -1,18 +1,23 @@
 body{
-    margin: 0 auto;
+    display: flex;
     max-width: 1700px;
-    background: rgb(53, 53, 53);
-    height: 200vh;
+    margin: 0 auto;
+    /* height: 1000vh; */
+    /* background: rgb(243, 243, 243); */
+    background: white;
+    /* border: solid black 2px; */
+    font-family: 'Montserrat';
+
 }
-.navblock{
-    width: 25%;
-    height: 100%;
-    position: fixed;
-    background: rgb(247, 247, 247);
+.left__block{
+    width: 20%;
+    height: 750px;
+    position: sticky;
+    top: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
+    background: rgb(255, 255, 255);
 }
 .navblock__wrap{
     display: flex;
@@ -23,8 +28,7 @@ body{
 .navigation{
     display: flex;
     flex-direction: column;
-    font-size: 35px;
-    font-family: 'Montserrat';
+    font-size: 25px;
     gap: 32px;
 }
 .nav__link{
@@ -32,16 +36,20 @@ body{
     color: black;
     transition: all 0.2s;
 }
+.logo{
+    width: 170px;
+}
 .icon{
+    width: 30px;
 }
 .hovericon{
     transition: all 0.2s;
 }
 .icon:hover .hovericon{
-    fill: rgb(255,153,0);
+    fill: rgb(255, 196, 0);
 }
 .nav__link:hover{
-    color: rgb(255,153,0);
+    color: rgb(255, 196, 0);
 }
 .nav__media{
     display: flex;
@@ -49,4 +57,82 @@ body{
     gap: 35px;
     align-items: center;
 }
+.content{
+    width: 80%;
+}
+.head{
+    width: 100%;
+    height: 60px;
+    background: rgb(255, 255, 255);
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+button{
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
 
+}
+.head__button{
+    background: white;
+    padding: 10px;
+    margin-left: 50px;
+    transition: all 0.2s;
+}
+.button__icon{
+    transition: 0.1s;
+}
+.head__button:hover .button__icon{
+    fill: rgb(255, 196, 0);
+}
+.fake__button{
+    text-decoration: none;
+    background: rgb(255, 196, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0px 20px;
+    border-radius: 5px;
+    transition: all 0.2s;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: black;
+    
+}
+.fake__button:hover{
+    background: rgb(255, 208, 54);
+}
+.head__signin__button{
+    height: 40px;
+    margin-right: 50px;
+}
+.main__content{
+    /* height: 100vh; */
+}
+.page__title{
+    font-size: 40px;
+    font-weight: bold;
+    margin-left: 50px;
+}
+.main__products{
+    /* margin-left: 50px; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.product__card{
+    width: 30%;
+    height: 400px;
+    background: rgb(247, 246, 246);
+    border-radius: 5px;
+}
