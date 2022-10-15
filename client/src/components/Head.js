@@ -1,7 +1,10 @@
 import './style.css';
-
+import ModalWindow from './ModalWindow';
+import { useState } from 'react';
 
 function Head(){
+    const [modalActive, setModalActive] = useState();
+
     return(
         <div className="head">
         <button className="head__button">
@@ -10,7 +13,10 @@ function Head(){
             </svg>
                 
         </button>
-        <a href="" className="fake__button head__signin__button">войти</a>
+        <button onClick={()=> setModalActive(true)} className="fake__button head__signin__button">войти</button>
+        
+        <ModalWindow active={modalActive} setActive={setModalActive}/>
+
     </div>
     );
 }
