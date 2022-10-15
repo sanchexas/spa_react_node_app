@@ -180,3 +180,46 @@ input{
 .modal__content input{
     width: 70%;
 }
+
+@media screen and (min-width: 950px) and (max-width: 1200px){
+    .product__card{
+        width: 45%;
+    }
+    
+}
+@media screen and (min-width: 620px) and (max-width: 950px){
+    body{
+        flex-direction: column;
+        align-items: center;
+    }
+    .content{
+        width: 100%;
+    }
+    .product__card{
+        width: 60%;
+    }
+    .left__block{
+        display: none;
+    }
+    .head__signin__button{
+        display: none;
+    }
+}
+@media screen and (min-width: 0px) and (max-width: 620px){
+    body{
+        flex-direction: column;
+        align-items: center;
+    }
+    .content{
+        width: 100%;
+    }
+    .product__card{
+        width: 90%;
+    }
+    .left__block{
+        display: none;
+    }
+    .head__signin__button{
+        display: none;
+    }
+}
