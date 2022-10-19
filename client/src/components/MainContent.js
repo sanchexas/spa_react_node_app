@@ -1,6 +1,5 @@
 import './style.css';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import LeftBlock from './LeftBlock';
+import { Routes, Route} from 'react-router-dom';
 import NewsPage from './pages/NewsPage';
 import Catalog from './pages/Catalog';
 import Workshop from './pages/Workshop';

@@ -1,18 +1,37 @@
+import { useState } from 'react';
+import Axios from 'axios';
 import './style.css';
 
 // function ModalWindowSignUp({activeSignUp, setActiveSignUp})
 function ModalWindowSignUp() {
+    const [fio, setFio] = useState('');
+    const [email, setEmail] = useState('');
+    const [telNum, setTelNum] = useState('');
+    const [password, setPassword] = useState('');
+    const [repPassword, setRepPassword] = useState('');
+
+    const submitSignUpForm = () =>{
+        Axios.post('http://localhost:3001/signup', {
+            fio: fio, 
+            email: email, 
+            tel: telNum, 
+            password: password}
+        ).then(()=>{
+            alert("вы зарегистрированы!");
+        })
+    }
     return(
         // <div className={activeSignUp ? "modal__wrap active" : "modal__wrap"} onClick={()=> setActiveSignUp(false)}></div>
         // <div className='modal__content sign__up__form' onClick={(event) => event.stopPropagation()}>
         <div className='modal__center'>
             <div className='modal__content sign__up__form'>
                 <h2>Регистрация</h2>
-                <input type="text" placeholder='фио'/>
-                <input type="email" placeholder='e-mail'/>
-                <input type="tel" placeholder='номер телефона'/>
-                <input type="password" placeholder='пароль'/>
-                <button className='' type='submit'>зарегистрироваться</button>
+                <input type="text" name="fio" onChange={(event)=>{setFio(event.target.value)}} placeholder='фио'/>
+                <input type="email" placeholder='e-mail' name="email" onChange={(event)=>{setEmail(event.target.value)}}/>
+                <input type="tel" placeholder='номер телефона' name="tel" onChange={(event)=>{setTelNum(event.target.value)}}/>
+                <input type="password" placeholder='пароль' name="password" onChange={(event)=>{setPassword(event.target.value)}}/>
+                <input type="password" placeholder='повторите пароль' name="reppassword" onChange={(event)=>{setRepPassword(event.target.value)}}/>
+                <button className='' onClick={submitSignUpForm} type='submit'>зарегистрироваться</button>
             </div>
         </div>
             

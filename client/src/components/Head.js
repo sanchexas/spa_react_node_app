@@ -1,6 +1,6 @@
 import './style.css';
-import ModalWindow from './ModalWindow';
-import ModalWindowSignUp from './ModalWindowSignUp';
+// import ModalWindow from './ModalWindow';
+// import ModalWindowSignUp from './ModalWindowSignUp';
 import {Link} from 'react-router-dom';
 // import { useState } from 'react';
 
