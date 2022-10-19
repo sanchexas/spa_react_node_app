@@ -111,7 +111,6 @@ button{
 }
 .head__signin__button{
     height: 40px;
-    margin-right: 50px;
 }
 .main__content{
     /* height: 100vh; */
@@ -135,6 +134,11 @@ button{
     height: 400px;
     background: rgb(247, 246, 246);
     border-radius: 5px;
+}
+.sign__buttons__block{
+    display: flex;
+    gap: 15px;
+    margin-right: 50px;
 }
 .modal__wrap{
     height: 100%;

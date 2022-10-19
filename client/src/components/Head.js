@@ -1,10 +1,11 @@
 import './style.css';
 import ModalWindow from './ModalWindow';
+import ModalWindowSignUp from './ModalWindowSignUp';
 import { useState } from 'react';
 
 function Head(){
     const [modalActive, setModalActive] = useState();
-
+    const [modalSignUp, setModalSignUpActive] = useState();
     return(
         <div className="head">
         <button className="head__button">
@@ -13,10 +14,13 @@ function Head(){
             </svg>
                 
         </button>
-        <button onClick={()=> setModalActive(true)} className="fake__button head__signin__button">войти</button>
+        <div className='sign__buttons__block'>
+            <button onClick={()=> setModalActive(true)} className="fake__button head__signin__button">войти</button>
+            <ModalWindow active={modalActive} setActive={setModalActive}/>
+            <button onClick={()=> setModalSignUpActive(true)}>Зарегистрироваться</button>
+            <ModalWindowSignUp activeSignUp={modalSignUp} setActiveSignUp={setModalSignUpActive}/>
+        </div>
         
-        <ModalWindow active={modalActive} setActive={setModalActive}/>
-
     </div>
     );
 }

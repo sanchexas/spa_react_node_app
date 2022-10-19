@@ -1,10 +1,10 @@
 import './style.css';
 
-function ModalWindow({active, setActive}) {
+function ModalWindowSignUp({activeSignUp, setActiveSignUp}) {
     return(
-        <div className={active ? "modal__wrap active" : "modal__wrap"} onClick={()=> setActive(false)}>
+        <div className={activeSignUp ? "modal__wrap active" : "modal__wrap"} onClick={()=> setActiveSignUp(false)}>
             <div className='modal__content' onClick={(event) => event.stopPropagation()}>
-                <h2>Вход</h2>
+                <h2>Регистрация</h2>
                 <input type="text" placeholder='логин'/>
                 <input type="password" placeholder='пароль'/>
                 <button className='' type='submit'>войти</button>
@@ -13,5 +13,4 @@ function ModalWindow({active, setActive}) {
     );
 }
 
-export default ModalWindow;
-
+export default ModalWindowSignUp;
