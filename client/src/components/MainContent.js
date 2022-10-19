@@ -5,6 +5,8 @@ import NewsPage from './pages/NewsPage';
 import Catalog from './pages/Catalog';
 import Workshop from './pages/Workshop';
 import About from './pages/About';
+import ModalWindow from './ModalWindow';
+import ModalWindowSignUp from './ModalWindowSignUp';
 
 function MainContent(){
     return(
@@ -15,6 +17,8 @@ function MainContent(){
                 <Route path='/catalog' element={<Catalog />}></Route>
                 <Route path='/workshop' element={<Workshop />}></Route>
                 <Route path='/about' element={<About />}></Route>
+                <Route path='/signin' element={<ModalWindow />}></Route>
+                <Route path='/signup' element={<ModalWindowSignUp />}></Route>
             </Routes>
             
         </div>

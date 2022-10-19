@@ -9,6 +9,9 @@ body{
     font-family: 'Montserrat';
 
 }
+a{
+    text-decoration: none;
+}
 .left__block{
     width: 20%;
     height: 750px;
@@ -77,7 +80,6 @@ button{
     display: flex;
     align-items: center;
     border-radius: 5px;
-
 }
 .head__button{
     background: white;
@@ -169,6 +171,15 @@ button{
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+}
+.modal__center{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sign__up__form{
+    height: 600px;
 }
 ::-webkit-input-placeholder{
     color: rgba(0, 0, 0, 0.476);

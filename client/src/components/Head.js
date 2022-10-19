@@ -1,11 +1,12 @@
 import './style.css';
 import ModalWindow from './ModalWindow';
 import ModalWindowSignUp from './ModalWindowSignUp';
-import { useState } from 'react';
+import {Link} from 'react-router-dom';
+// import { useState } from 'react';
 
 function Head(){
-    const [modalActive, setModalActive] = useState();
-    const [modalSignUp, setModalSignUpActive] = useState();
+    // const [modalActive, setModalActive] = useState();
+    // const [modalSignUp, setModalSignUpActive] = useState();
     return(
         <div className="head">
         <button className="head__button">
@@ -15,10 +16,12 @@ function Head(){
                 
         </button>
         <div className='sign__buttons__block'>
-            <button onClick={()=> setModalActive(true)} className="fake__button head__signin__button">войти</button>
-            <ModalWindow active={modalActive} setActive={setModalActive}/>
-            <button onClick={()=> setModalSignUpActive(true)}>Зарегистрироваться</button>
-            <ModalWindowSignUp activeSignUp={modalSignUp} setActiveSignUp={setModalSignUpActive}/>
+            {/* <button onClick={()=> setModalActive(true)} className="fake__button head__signin__button">войти</button> */}
+            {/* <ModalWindow active={modalActive} setActive={setModalActive}/> */}
+            {/* <button onClick={()=> setModalSignUpActive(true)}>Зарегистрироваться</button> */}
+            {/* <ModalWindowSignUp activeSignUp={modalSignUp} setActiveSignUp={setModalSignUpActive}/> */}
+            <Link to="/signin"><button className="fake__button head__signin__button">войти</button></Link>
+            <Link to="/signup"><button>Зарегистрироваться</button></Link>
         </div>
         
     </div>
