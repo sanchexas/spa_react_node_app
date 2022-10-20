@@ -5,6 +5,10 @@ const cors = require('cors');
 const con = require('mysql');
 const app = express();
 
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
+
 app.get("/", (req, res)=>{
     res.send("<h1>hello serg</h1>");
 });
@@ -20,6 +24,12 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.get("/signup", (req, res)=>{
+    const selectQuery = "SELECT * FROM users";
+    db.query(selectQuery, (err, result)=>{
+        res.send(result);
+    })
+})
 app.post("/signup", (req, res)=>{
     const fio = req.body.fio;
     const email = req.body.email;
@@ -32,5 +42,5 @@ app.post("/signup", (req, res)=>{
 });
 
 app.listen(3001, ()=>{
-    console.log("сервер запущен на порте 3001")
+    console.log("сервер работает на порте 3001")
 });

@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Axios from 'axios';
 import './style.css';
+import {useNavigate} from 'react-router-dom';
 
 // function ModalWindowSignUp({activeSignUp, setActiveSignUp})
 function ModalWindowSignUp() {
+
     const [fio, setFio] = useState('');
     const [email, setEmail] = useState('');
     const [telNum, setTelNum] = useState('');
     const [password, setPassword] = useState('');
     const [repPassword, setRepPassword] = useState('');
+    const redirect = useNavigate();
+
+    useEffect(()=>{
+        Axios.get("http://localhost:3001/signup").then((response)=>{
+            console.log(response);
+        },[]);
+    });
 
     const submitSignUpForm = () =>{
         Axios.post('http://localhost:3001/signup', {
@@ -16,9 +25,9 @@ function ModalWindowSignUp() {
             email: email, 
             tel: telNum, 
             password: password}
-        ).then(()=>{
-            alert("вы зарегистрированы!");
-        })
+        ).then((response)=> {
+            console.log(response)
+        });
     }
     return(
         // <div className={activeSignUp ? "modal__wrap active" : "modal__wrap"} onClick={()=> setActiveSignUp(false)}></div>
