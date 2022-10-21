@@ -24,6 +24,9 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 
+
+//запаковываем get запрос и отправляем на фронт. Фронт, по желанию, может распаковать его через
+// useEffect и Axios.get("http://localhost:3001/signup"). 
 app.get("/signup", (req, res)=>{
     const selectQuery = "SELECT * FROM users";
     db.query(selectQuery, (err, result)=>{

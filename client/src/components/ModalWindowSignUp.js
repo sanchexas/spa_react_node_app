@@ -16,17 +16,20 @@ function ModalWindowSignUp() {
     useEffect(()=>{
         Axios.get("http://localhost:3001/signup").then((response)=>{
             console.log(response);
-        },[]);
+        },[]); //не забывать прописывать [] вторым параметром, так как мы хотим получить
+        //массив данных в json формате
     });
 
     const submitSignUpForm = () =>{
+        redirect("/signin");
         Axios.post('http://localhost:3001/signup', {
             fio: fio, 
             email: email, 
             tel: telNum, 
             password: password}
         ).then((response)=> {
-            console.log(response)
+            console.log(response);
+            
         });
     }
     return(
