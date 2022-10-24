@@ -1,5 +1,5 @@
-import { Axios } from 'axios';
-import { useState } from 'react';
+import  Axios  from 'axios';
+import { useEffect, useState } from 'react';
 import './style.css';
 
 // function ModalWindow({active, setActive})
@@ -7,12 +7,18 @@ function ModalWindow() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    useEffect(()=>{
+        Axios.get("http://localhost:3001/signin").then((response)=>{
+            console.log(response);
+        },[]);
+    });
+
     const submitSignInForm = () => {
         Axios.post('http://localhost:3001/signin', {
             email: email, 
             password: password}
-        ).then(()=>{
-            alert("вы вошли!");
+        ).then((response)=>{
+            console.log(response);
         })
     }
     return(

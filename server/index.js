@@ -7,6 +7,8 @@ const app = express();
 
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 
 app.get("/", (req, res)=>{
@@ -21,8 +23,22 @@ const db = con.createPool({
 });
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true
+}));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
+app.use(session({
+    key: "userId",
+    secret: "remeslo",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 60 * 60 * 24
+    }
+}))
 
 
 //запаковываем get запрос и отправляем на фронт. Фронт, по желанию, может распаковать его через
@@ -38,12 +54,39 @@ app.post("/signup", (req, res)=>{
     const email = req.body.email;
     const telNum = req.body.tel;
     const password = req.body.password;
-    const insertQuery = "INSERT INTO users VALUES (null, ?, ?, ?, ?)";
-    db.query(insertQuery, [fio, email, telNum, password], (err, result)=>{
-        console.log(result);
+
+    bcrypt.hash(password, saltRounds, (err, hash)=>{
+        if(err){
+            res.send({ err: err});
+        }
+        const insertQuery = "INSERT INTO users VALUES (null, ?, ?, ?, ?);";
+        db.query(insertQuery, [fio, email, telNum, hash], (err, result)=>{
+            console.log(result);
+        });
     });
+    
 });
 
+// app.get("/signin", (req, res)=>{
+//     res.send("aaaaaa");
+// });
+//ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПРОВЕРКУ В БУДУЩЕМ
+app.post("/signin", (req, res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+    const selectQuery = "SELECT * FROM users WHERE ? = email AND ? = password;";
+    db.query(selectQuery, [email, password], (err, result)=>{
+        if(err){
+            res.send({ err: err});
+        }
+        if(result.length > 0){
+            res.send(result);
+        }
+        else{
+            res.send({ message: "Пользователя не существует, или неправильно введены данные"});
+        }
+    });
+});
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")
 });
