@@ -47,8 +47,8 @@ app.get("/signup", (req, res)=>{
     const selectQuery = "SELECT * FROM users";
     db.query(selectQuery, (err, result)=>{
         res.send(result);
-    })
-})
+    });
+});
 app.post("/signup", (req, res)=>{
     const fio = req.body.fio;
     const email = req.body.email;
@@ -67,26 +67,45 @@ app.post("/signup", (req, res)=>{
     
 });
 
-// app.get("/signin", (req, res)=>{
-//     res.send("aaaaaa");
-// });
+
+app.get("/signin", (req, res)=>{
+    if(req.session.user){
+        res.send({ signin: true, user: req.session.user});
+    }else{
+        res.send({ signin: false});
+    }
+});
 //ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПРОВЕРКУ В БУДУЩЕМ
 app.post("/signin", (req, res)=>{
     const email = req.body.email;
     const password = req.body.password;
-    const selectQuery = "SELECT * FROM users WHERE ? = email AND ? = password;";
-    db.query(selectQuery, [email, password], (err, result)=>{
-        if(err){
-            res.send({ err: err});
-        }
-        if(result.length > 0){
-            res.send(result);
-        }
-        else{
-            res.send({ message: "Пользователя не существует, или неправильно введены данные"});
-        }
-    });
+    const selectQuery = "SELECT * FROM users WHERE ? = email;";
+        db.query(selectQuery, email, (err, result)=>{
+            if(err){
+                res.send({ err: err});
+            }
+
+            if(result.length > 0){
+                bcrypt.compare(password, result[0].password, (error, response)=>{
+                    if(error){
+                        res.send({error: error});
+                    }
+                    if(response){
+                        req.session.user = result;  
+                        console.log(req.session.user);
+                        res.send(result);
+                    }else{
+                        res.send({message: "Некорректные данные"});
+                    }
+                });
+            }else{
+                res.send({message: "Пользователя не существует"});
+            }
+        });
+    
 });
+
+
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")
 });
