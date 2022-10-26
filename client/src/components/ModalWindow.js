@@ -1,6 +1,7 @@
 import  Axios  from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './style.css';
+import Cookies from 'universal-cookie';
 
 // function ModalWindow({active, setActive})
 function ModalWindow() {
@@ -10,22 +11,28 @@ function ModalWindow() {
 
     Axios.defaults.withCredentials = true;
 
-    useEffect(()=>{
-        Axios.get('http://localhost:3001/signin').then((response)=>{
-            if(response.data.signin == true){
-                setLogin(response.data.user[0].fio);
-            }
-            
-        });
-    }, []);
+    // useEffect(()=>{
+    //     Axios.get('http://localhost:3001/signin').then((response)=>{
+    //         console.log(response.data)
+    //         if(response.data.signin === true){
+    //             setLogin(response.data.user[0].fio);
+    //         }
+    //         if(response.data.message){
+    //             setLogin(response.data.message);
+    //         }
+    //     });
+    // }, []);
 
     const submitSignInForm = () => {
         Axios.post('http://localhost:3001/signin', {
             email: email, 
             password: password}
         ).then((response)=>{
-            console.log(response.data);
-        })
+            const cookies = new Cookies();
+            cookies.set('user', response.data.message, { path: '/' });
+            // console.log(cookies.get('user'));
+            setLogin(response.data.message);
+        });
     }
     return(
         // <div className={active ? "modal__wrap active" : "modal__wrap"} onClick={()=> setActive(false)}></div>
@@ -36,7 +43,7 @@ function ModalWindow() {
                 <input type="email" placeholder='e-mail' name='email' onChange={(event)=>setEmail(event.target.value)}/>
                 <input type="password" placeholder='пароль' name='password' onChange={(event)=>setPassword(event.target.value)}/>
                 <button onClick={submitSignInForm} className='' type='submit'>войти</button>
-                <h2>{login}</h2>
+                <span>{login}</span>
             </div>
         </div>
     );

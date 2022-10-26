@@ -8,6 +8,7 @@ const app = express();
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
+
 const saltRounds = 10;
 
 
@@ -36,11 +37,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        expires: 60 * 60 * 24
+        expires: 60 * 60 * 24,
     }
-}))
-
-
+}));
 //запаковываем get запрос и отправляем на фронт. Фронт, по желанию, может распаковать его через
 // useEffect и Axios.get("http://localhost:3001/signup"). 
 app.get("/signup", (req, res)=>{
@@ -68,13 +67,14 @@ app.post("/signup", (req, res)=>{
 });
 
 
-app.get("/signin", (req, res)=>{
-    if(req.session.user){
-        res.send({ signin: true, user: req.session.user});
-    }else{
-        res.send({ signin: false});
-    }
-});
+// app.get("/signin", (req, res)=>{
+//     if(req.session.user){
+//         res.send({ signin: true, user: req.session.user});
+//     }else{
+//         res.send({ signin: false});
+//     }
+// });
+
 //ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПРОВЕРКУ В БУДУЩЕМ
 app.post("/signin", (req, res)=>{
     const email = req.body.email;
@@ -91,9 +91,11 @@ app.post("/signin", (req, res)=>{
                         res.send({error: error});
                     }
                     if(response){
-                        req.session.user = result;  
-                        console.log(req.session.user);
-                        res.send(result);
+                        
+                        req.session.user = result[0].fio;  
+                        // console.log(req.session.user);
+                        //res.send(result);
+                        res.send({message: req.session.user});
                     }else{
                         res.send({message: "Некорректные данные"});
                     }
