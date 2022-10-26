@@ -31,16 +31,12 @@ function ModalWindow() {
             email: email, 
             password: password}
         ).then((response)=>{
-            cookies.set('user', response.data.message, { path: '/' });
-            setLogin(response.data.message);
+            //cookies.set('user', response.data.message, { path: '/' });
+            console.log(cookies.get('id'));
+            // setLogin(response.data.message);
+            window.location.reload();
         });
-        window.location.reload();
-        // if(cookies.get('user')){
-        //     setTimeout(()=>{
-        //         redirect("/");
-        //     }, 100);
-        // }
-        
+        redirect("/")
     }
     return(
         // <div className={active ? "modal__wrap active" : "modal__wrap"} onClick={()=> setActive(false)}></div>

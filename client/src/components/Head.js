@@ -1,12 +1,22 @@
 import './style.css';
 import {Link} from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import { useEffect, useState } from 'react';
+import  Axios  from 'axios';
 
 
 function Head(){
+    Axios.defaults.withCredentials = true;
+    const [fio, setFio] = useState('');
+    useEffect(()=>{
+            Axios.get('http://localhost:3001/signin').then((response)=>{
+                console.log(response);
+                setFio(response.data.message);
+            });
+        }, []);
     function regBlock(){
         const cookies = new Cookies();
-        if(!cookies.get('user')){
+        if(!cookies.get('idUser')){
             return(
                 <div className='sign__buttons__block'>
                     <Link to="/signin"><button className="fake__button head__signin__button">войти</button></Link>
@@ -17,7 +27,7 @@ function Head(){
         else{
             return(
                 <div className='sign__buttons__block'>
-                     <p>{cookies.get('user')}</p>
+                     <Link to="/account">{fio}</Link>
                 </div>
             );
         }

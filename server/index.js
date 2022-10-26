@@ -1,10 +1,10 @@
 'use strict';
+//import Cookies from 'universal-cookie';
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const con = require('mysql');
 const app = express();
-
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
@@ -37,9 +37,18 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
+        path: '/',
         expires: 60 * 60 * 24,
     }
 }));
+// app.get("/account",(req, res)=>{
+
+// });
+app.post("/account", (req, res)=>{
+    req.session.car = "result[0].fio";  
+    console.log(req.session.car);
+    res.send(req.session.car);
+});
 //запаковываем get запрос и отправляем на фронт. Фронт, по желанию, может распаковать его через
 // useEffect и Axios.get("http://localhost:3001/signup"). 
 app.get("/signup", (req, res)=>{
@@ -67,13 +76,18 @@ app.post("/signup", (req, res)=>{
 });
 
 
-// app.get("/signin", (req, res)=>{
-//     if(req.session.user){
-//         res.send({ signin: true, user: req.session.user});
-//     }else{
-//         res.send({ signin: false});
-//     }
-// });
+app.get("/signin", (req, res)=>{
+    let userId = req.cookies.idUser; // ПОЛУЧЕНИЕ COOKIE
+    const selectQuery = "SELECT * FROM users WHERE id = ?;";
+    db.query(selectQuery, userId, (err, result)=>{ 
+        if(err){
+            res.send({ err: err});
+        }
+        if(result){
+            res.send({message: result[0].fio})
+        }
+    })
+});
 
 //ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПРОВЕРКУ В БУДУЩЕМ
 app.post("/signin", (req, res)=>{
@@ -91,9 +105,9 @@ app.post("/signin", (req, res)=>{
                         res.send({error: error});
                     }
                     if(response){
-                        
-                        // req.session.user = result[0].fio;  
-                        // console.log(req.session.user);
+                        res.cookie('idUser', result[0].id); // id пользователя в куки должно соответствовать названию колонки id в бд.
+                        //req.session.cookie.value = result[0].id;  
+                        // console.log(req.cookies);
                         //res.send(result);
                         res.send({message: result[0].fio});
                     }else{

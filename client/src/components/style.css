@@ -198,7 +198,22 @@ input{
 .modal__content input{
     width: 70%;
 }
-
+.account_wrap{
+    width: 100%;
+    /* height: 100vh; */
+    background: rgb(230, 230, 230);
+    display: flex;
+}
+.account_block{
+    width: 30%;
+    height: 100vh;
+    background: yellow;
+}
+.account_info{
+    width: 70%;
+    height: 100vh;
+    background: red;
+}
 @media screen and (min-width: 950px) and (max-width: 1200px){
     .product__card{
         width: 45%;
