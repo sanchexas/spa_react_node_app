@@ -2,12 +2,15 @@ import  Axios  from 'axios';
 import { useState } from 'react';
 import './style.css';
 import Cookies from 'universal-cookie';
+import {useNavigate} from 'react-router-dom';
 
 // function ModalWindow({active, setActive})
 function ModalWindow() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [login, setLogin] = useState('');
+    const redirect = useNavigate();
+    const cookies = new Cookies();
 
     Axios.defaults.withCredentials = true;
 
@@ -28,11 +31,16 @@ function ModalWindow() {
             email: email, 
             password: password}
         ).then((response)=>{
-            const cookies = new Cookies();
             cookies.set('user', response.data.message, { path: '/' });
-            // console.log(cookies.get('user'));
             setLogin(response.data.message);
         });
+        window.location.reload();
+        // if(cookies.get('user')){
+        //     setTimeout(()=>{
+        //         redirect("/");
+        //     }, 100);
+        // }
+        
     }
     return(
         // <div className={active ? "modal__wrap active" : "modal__wrap"} onClick={()=> setActive(false)}></div>

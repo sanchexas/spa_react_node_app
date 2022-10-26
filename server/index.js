@@ -92,10 +92,10 @@ app.post("/signin", (req, res)=>{
                     }
                     if(response){
                         
-                        req.session.user = result[0].fio;  
+                        // req.session.user = result[0].fio;  
                         // console.log(req.session.user);
                         //res.send(result);
-                        res.send({message: req.session.user});
+                        res.send({message: result[0].fio});
                     }else{
                         res.send({message: "Некорректные данные"});
                     }
