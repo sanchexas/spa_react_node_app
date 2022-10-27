@@ -44,10 +44,11 @@ app.use(session({
 // app.get("/account",(req, res)=>{
 
 // });
-app.post("/account", (req, res)=>{
-    req.session.car = "result[0].fio";  
-    console.log(req.session.car);
-    res.send(req.session.car);
+app.get("/account", (req, res)=>{
+    const selectQuery = "SELECT * FROM users WHERE id = ?";
+    db.query(selectQuery, req.cookies.idUser, (err, result)=>{
+        res.send(result);
+    });
 });
 //запаковываем get запрос и отправляем на фронт. Фронт, по желанию, может распаковать его через
 // useEffect и Axios.get("http://localhost:3001/signup"). 
