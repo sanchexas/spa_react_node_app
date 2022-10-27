@@ -4,8 +4,6 @@ import Cookies from 'universal-cookie';
 import { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 
-
-
 function Account(){
     const cookies = new Cookies();
     const [fio, setFio] = useState('');

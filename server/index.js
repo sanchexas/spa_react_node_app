@@ -78,9 +78,9 @@ app.post("/signup", (req, res)=>{
 
 
 app.get("/signin", (req, res)=>{
-    let userId = req.cookies.idUser; // ПОЛУЧЕНИЕ COOKIE
+     // ПОЛУЧЕНИЕ COOKIE
     const selectQuery = "SELECT * FROM users WHERE id = ?;";
-    db.query(selectQuery, userId, (err, result)=>{ 
+    db.query(selectQuery, req.cookies.idUser, (err, result)=>{ 
         if(err){
             res.send({ err: err});
         }
