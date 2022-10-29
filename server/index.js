@@ -45,7 +45,7 @@ app.use(session({
 
 // });
 app.get("/account", (req, res)=>{
-    const selectQuery = "SELECT * FROM users WHERE id = ?";
+    const selectQuery = "SELECT * FROM users WHERE id_user = ?";
     db.query(selectQuery, req.cookies.idUser, (err, result)=>{
         res.send(result);
     });
@@ -79,7 +79,7 @@ app.post("/signup", (req, res)=>{
 
 app.get("/signin", (req, res)=>{
      // ПОЛУЧЕНИЕ COOKIE
-    const selectQuery = "SELECT * FROM users WHERE id = ?;";
+    const selectQuery = "SELECT * FROM users WHERE id_user = ?;";
     db.query(selectQuery, req.cookies.idUser, (err, result)=>{ 
         if(err){
             res.send({ err: err});
@@ -106,7 +106,7 @@ app.post("/signin", (req, res)=>{
                         res.send({error: error});
                     }
                     if(response){
-                        res.cookie('idUser', result[0].id); // id пользователя в куки должно соответствовать названию колонки id в бд.
+                        res.cookie('idUser', result[0].id_user); // id пользователя в куки должно соответствовать названию колонки id в бд.
                         //req.session.cookie.value = result[0].id;  
                         // console.log(req.cookies);
                         //res.send(result);
@@ -120,6 +120,23 @@ app.post("/signin", (req, res)=>{
             }
         });
     
+});
+
+app.post('/workshop', (req, res)=>{
+    const title = req.body.title;
+    const description = req.body.description;
+    const adress = req.body.adress;
+    const productImage = req.body.productImage;
+    // const productImage = 'dehjgefgef';
+    const price = req.body.price;
+    const shortDescription = req.body.shortDescription;
+    const authorId = req.body.authorId;
+
+    const insertQuery = "INSERT INTO products VALUES (null, ?, ?, ?, ?, ?, ?, ?);";
+    db.query(insertQuery, [title, description, adress, productImage, price, shortDescription, authorId], (err, result)=>{
+        console.log(productImage);
+        res.send(result);
+    });
 });
 
 

@@ -174,6 +174,33 @@ button{
     align-items: center;
     justify-content: space-around;
 }
+.workshop__wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    margin-top: 50px;
+}
+.create__product{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+[hidden][hidden]{
+    display: none;
+}
+.my__products{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+.add__product{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
 .modal__center{
     margin-top: 30px;
     width: 80%;
@@ -198,21 +225,29 @@ input{
 .modal__content input{
     width: 70%;
 }
-.account_wrap{
+.account__wrap{
     width: 100%;
     /* height: 100vh; */
     background: rgb(230, 230, 230);
     display: flex;
 }
-.account_block{
+.account__block{
     width: 30%;
     height: 100vh;
-    background: yellow;
+    display: flex;
+    flex-direction: column;
+
 }
-.account_info{
+.account__info{
+    
+}
+.account__story{
     width: 70%;
     height: 100vh;
-    background: red;
+
+}
+.edit__account__info{
+
 }
 @media screen and (min-width: 950px) and (max-width: 1200px){
     .product__card{
