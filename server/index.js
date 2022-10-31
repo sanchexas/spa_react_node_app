@@ -8,10 +8,20 @@ const app = express();
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
-
 const saltRounds = 10;
+const path = require('path');
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, '../client/src/pictures');
+    },
+    filename: (req, file, callback) => {
+        console.log(file);
+        callback(null, Date.now() + path.extname(file.originalname));
+    }
 
-
+});
+const upload = multer({storage: storage});
 app.get("/", (req, res)=>{
     res.send("<h1>hello serg</h1>");
 });
@@ -94,12 +104,11 @@ app.get("/signin", (req, res)=>{
 app.post("/signin", (req, res)=>{
     const email = req.body.email;
     const password = req.body.password;
-    const selectQuery = "SELECT * FROM users WHERE ? = email;";
+    const selectQuery = "SELECT * FROM users WHERE email = ?;";
         db.query(selectQuery, email, (err, result)=>{
             if(err){
                 res.send({ err: err});
             }
-
             if(result.length > 0){
                 bcrypt.compare(password, result[0].password, (error, response)=>{
                     if(error){
@@ -122,12 +131,11 @@ app.post("/signin", (req, res)=>{
     
 });
 
-app.post('/workshop', (req, res)=>{
+app.post('/workshop', upload.single('productImage'),(req, res)=>{
     const title = req.body.title;
     const description = req.body.description;
     const adress = req.body.adress;
-    const productImage = req.body.productImage;
-    // const productImage = 'dehjgefgef';
+    const productImage = "../../pictures/" + req.body.productImage;
     const price = req.body.price;
     const shortDescription = req.body.shortDescription;
     const authorId = req.body.authorId;

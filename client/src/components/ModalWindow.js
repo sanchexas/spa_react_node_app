@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom';
 function ModalWindow() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [login, setLogin] = useState('');
     const redirect = useNavigate();
     const cookies = new Cookies();
 
@@ -30,9 +31,7 @@ function ModalWindow() {
             email: email, 
             password: password}
         ).then((response)=>{
-            //cookies.set('user', response.data.message, { path: '/' });
-            console.log(cookies.get('id'));
-            // setLogin(response.data.message);
+            setLogin(response.data.message);
             window.location.reload();
         });
         redirect("/")
@@ -47,6 +46,7 @@ function ModalWindow() {
                 <input type="password" placeholder='пароль' name='password' onChange={(event)=>setPassword(event.target.value)}/>
                 <button onClick={submitSignInForm} className='' type='submit'>войти</button>
             </div>
+            {login}
         </div>
     );
 }

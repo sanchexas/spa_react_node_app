@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import '../style.css';
 import  Axios  from 'axios';
 import Cookies from 'universal-cookie';
@@ -14,8 +15,10 @@ function Workshop() {
     const [shortDescription, setShortDescription] = useState('');
     Axios.defaults.withCredentials = true;
     const cookies = new Cookies();
+    const formdata = new FormData();
 
     const submitProduct = () =>{
+        formdata.append('file', setProductImage);
         axios.post("http://localhost:3001/workshop", {
             title: title,
             description: description,
@@ -45,16 +48,16 @@ function Workshop() {
                 <h2>Заявите о себе сейчас! Предложите свой товар</h2>
                 <button onClick={addProduct} id='btn'>Предложить</button>
             </div>
-            <form className='add__product' id='ap' hidden="true" action='/workshop' encType="multipart/form-data">
+            <div className='add__product' id='ap' hidden="true">
                 <input type="text" name="title" onChange={(event)=>{setTitle(event.target.value)}}></input>
                 <textarea name="description" onChange={(event)=>{setDescription(event.target.value)}} id="" cols="30" rows="10"></textarea>
                 <input type="text" name="adress" onChange={(event)=>{setAdress(event.target.value)}}></input>
-                <input type="file" name="productImage" onChange={(event)=>{setProductImage(event.target.files[0].name)}}></input>
+                <input type="file" accept="image/*,.png,.jpg,.jpeg" name="productImage" onChange={(event)=>{setProductImage(event.target.files)}}></input>
                 <input type="number" name="price" onChange={(event)=>{setPrice(event.target.value)}}></input>
                 <textarea name="shortDescription" onChange={(event)=>{setShortDescription(event.target.value)}} id="" cols="30" rows="10"></textarea>
                 <button onClick={submitProduct}>Добавить</button>
                 <button onClick={cancelAddProduct} id='cncbtn'>Отмена</button>
-            </form>
+            </div>
             <div className='my__products'>
                 <a href="" className="product__card">
 

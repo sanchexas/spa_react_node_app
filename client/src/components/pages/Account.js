@@ -53,7 +53,7 @@ function Account(){
                     <button onClick={editProfile}>Редактировать</button>
                     <button onClick={exit}>Выйти</button>
                 </div>
-                <div className='edit__account__info' id='eai' hidden="true">
+                <div className='edit__account__info' id='eai' hidden>
                     <input value={fio}></input>
                     <input value={tel}></input>
                     <input value={email}></input>
