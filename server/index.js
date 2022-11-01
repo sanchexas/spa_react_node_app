@@ -9,19 +9,10 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const path = require('path');
 const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, '../client/src/pictures');
-    },
-    filename: (req, file, callback) => {
-        console.log(file);
-        callback(null, Date.now() + path.extname(file.originalname));
-    }
+// var fileupload = require("express-fileupload");
 
-});
-const upload = multer({storage: storage});
+
 app.get("/", (req, res)=>{
     res.send("<h1>hello serg</h1>");
 });
@@ -33,7 +24,9 @@ const db = con.createPool({
     database: 'remeslo',
 });
 
+// app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// app.use(fileupload());
 app.use(cors({
     origin: ["http://localhost:3000"],
     methods: ["GET", "POST"],
@@ -130,20 +123,43 @@ app.post("/signin", (req, res)=>{
         });
     
 });
+let myFile ='';
+const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, '../client/src/pictures');
+        },
+        filename : function (req, file, cb) {
+            cb(null, myFile = Date.now() + '-' +file.originalname );
+        }
+    });
+    const upload = multer({storage: storage}).single('productImage');
 
-app.post('/workshop', upload.single('productImage'),(req, res)=>{
+// const upload = multer({ dest: '../client/src/pictures' });
+app.post('/workshop',upload,(req, res)=>{
+    // console.log(req.file.filename);
+
+    console.log(req.body.title + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ");
+
     const title = req.body.title;
     const description = req.body.description;
     const adress = req.body.adress;
-    const productImage = "../../pictures/" + req.body.productImage;
+    const productImage = '../client/src/pictures' + myFile;
+    // console.log(req.file);
     const price = req.body.price;
     const shortDescription = req.body.shortDescription;
-    const authorId = req.body.authorId;
+    const authorId = req.cookies.idUser;
 
     const insertQuery = "INSERT INTO products VALUES (null, ?, ?, ?, ?, ?, ?, ?);";
     db.query(insertQuery, [title, description, adress, productImage, price, shortDescription, authorId], (err, result)=>{
-        console.log(productImage);
-        res.send(result);
+        // console.log(productImage);
+        // res.send(result);
+        if(err){
+            res.send({ err: err});
+            console.log({err: err});
+        }
+        if(result){
+            console.log(result);
+        }
     });
 });
 
