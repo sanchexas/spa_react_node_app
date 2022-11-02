@@ -138,6 +138,9 @@ button{
     height: 400px;
     background: rgb(247, 246, 246);
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 .sign__buttons__block{
     display: flex;
@@ -192,6 +195,7 @@ button{
 .my__products{
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
     align-items: center;

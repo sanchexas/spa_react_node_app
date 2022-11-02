@@ -21,6 +21,18 @@ const db = con.createPool({
     password: '',
     database: 'remeslo',
 });
+//загрузка файла в папку, дальнейшее использование upload в post запросе "/workshop"
+let myFile ='';
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../client/src/pictures');
+    },
+    filename : function (req, file, cb) {
+        cb(null, myFile = Date.now() + '-' +file.originalname );
+    }
+});
+
+const upload = multer({storage: storage}).single('productImage');
 
 app.use(express.json());
 app.use(cors({
@@ -71,8 +83,6 @@ app.post("/signup", (req, res)=>{
     });
     
 });
-
-
 app.get("/signin", (req, res)=>{
      // ПОЛУЧЕНИЕ COOKIE
     const selectQuery = "SELECT * FROM users WHERE id_user = ?;";
@@ -85,7 +95,6 @@ app.get("/signin", (req, res)=>{
         }
     })
 });
-
 //ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПРОВЕРКУ В БУДУЩЕМ
 app.post("/signin", (req, res)=>{
     const email = req.body.email;
@@ -116,17 +125,6 @@ app.post("/signin", (req, res)=>{
         });
     
 });
-let myFile ='';
-const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, '../client/src/pictures');
-        },
-        filename : function (req, file, cb) {
-            cb(null, myFile = Date.now() + '-' +file.originalname );
-        }
-    });
-    const upload = multer({storage: storage}).single('productImage');
-
 app.post('/workshop',upload,(req, res)=>{
     const title = req.body.title;
     const description = req.body.description;
@@ -137,17 +135,29 @@ app.post('/workshop',upload,(req, res)=>{
     const authorId = req.cookies.idUser;
 
     const insertQuery = "INSERT INTO products VALUES (null, ?, ?, ?, ?, ?, ?, ?);";
-    db.query(insertQuery, [title, description, adress, productImage, price, shortDescription, authorId], (err, result)=>{
+    db.query(insertQuery, [title, description, adress, productImage, Number(price), shortDescription, authorId], (err, result)=>{
         if(err){
             res.send({ err: err});
             console.log({err: err});
         }
         if(result){
-            console.log(result);
+            res.send(result)
         }
     });
 });
-
+app.get('/workshop', (req, res)=>{
+    const authorId = req.cookies.idUser;
+    const selectQuery = "SELECT * FROM products WHERE author_id = ?;";
+    db.query(selectQuery, authorId, (err, result)=>{
+        if(err){
+            res.send({ err: err});
+            console.log({err: err});
+        }
+        if(result){
+            res.send({message: result});
+        }
+    });
+});
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")
 });
