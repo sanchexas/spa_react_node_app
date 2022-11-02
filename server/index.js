@@ -174,6 +174,18 @@ app.post('/account/change', (req, res)=>{
         }
     });
 });
+app.get('/newspage',(req, res)=>{
+    const selectQuery = "SELECT * FROM products";
+    db.query(selectQuery, (err, result)=>{
+        if(err){
+            res.send({ err: err});
+            console.log({err: err});
+        }
+        if(result){
+            res.send({message: result});
+        }
+    } );
+});
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")
 });

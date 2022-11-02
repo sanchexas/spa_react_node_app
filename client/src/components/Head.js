@@ -27,7 +27,7 @@ function Head(){
         else{
             return(
                 <div className='sign__buttons__block'>
-                     <Link to={`/account/${cookies.get('idUser')}`}>{fio}</Link>
+                     <Link to={'/account'}>{fio}</Link>
                 </div>
             );
         }
