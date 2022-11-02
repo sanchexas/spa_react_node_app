@@ -1,4 +1,4 @@
-body{
+.body{
     display: flex;
     max-width: 1700px;
     margin: 0 auto;
@@ -263,7 +263,7 @@ input{
     
 }
 @media screen and (min-width: 620px) and (max-width: 950px){
-    body{
+    .body{
         flex-direction: column;
         align-items: center;
     }
@@ -281,7 +281,7 @@ input{
     }
 }
 @media screen and (min-width: 0px) and (max-width: 620px){
-    body{
+    .body{
         flex-direction: column;
         align-items: center;
     }

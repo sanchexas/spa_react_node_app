@@ -6,14 +6,15 @@ import {useNavigate} from 'react-router-dom';
 
 function Account(){
     const cookies = new Cookies();
-    const [fio, setFio] = useState('');
+    const [fio, setFio] = useState('sdsdsd');
     const [tel, setTel] = useState('');
     const [email, setEmail] = useState('');
     const redirect = useNavigate();
 
-    useEffect(()=>{
-        Axios.get("http://localhost:3001/account").then((response)=>{
-            // console.log(response.data[0].fio);
+    Axios.defaults.withCredentials = true;
+
+     useEffect(()=>{
+        Axios.get('http://localhost:3001/account').then((response)=>{
             if(cookies.get('idUser')){
                 setFio(response.data[0].fio);
                 setTel(response.data[0].tel);
@@ -26,7 +27,7 @@ function Account(){
             }
             
         },[]);
-    });
+     },[]);
     
     const exit = () =>{
         if(cookies.get('idUser')){
@@ -35,6 +36,17 @@ function Account(){
             window.location.reload();
         } 
     }
+    const changeProfile = () =>{
+        Axios.post('http://localhost:3001/account/change', {
+            fio: fio,
+            tel: tel,
+            email: email,
+        }).then((response)=>{
+            if(response.data.message){
+                window.location.reload();  
+            }
+        });
+    }
     const editProfile = () =>{
         document.getElementById("ab").hidden = true;
         document.getElementById("eai").hidden = false;
@@ -42,6 +54,7 @@ function Account(){
     const cancelEditing = () =>{
         document.getElementById("ab").hidden = false;
         document.getElementById("eai").hidden = true;
+        window.location.reload();
     }
     return(
         <div className='account__wrap'>
@@ -54,10 +67,10 @@ function Account(){
                     <button onClick={exit}>Выйти</button>
                 </div>
                 <div className='edit__account__info' id='eai' hidden>
-                    <input value={fio}></input>
-                    <input value={tel}></input>
-                    <input value={email}></input>
-
+                    <input type="text" value={fio} onChange={(event)=>{setFio(event.target.value)}}/>
+                    <input type="text"value={tel} onChange={(event)=>{setTel(event.target.value)}}></input>
+                    <input type="text"value={email} onChange={(event)=>{setEmail(event.target.value)}}></input>
+                    <button onClick={changeProfile}>Изменить</button>
                     <button onClick={cancelEditing}>Отменить</button>
                 </div>
             </div>

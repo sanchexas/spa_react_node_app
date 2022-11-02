@@ -157,6 +157,23 @@ app.get('/workshop', (req, res)=>{
         }
     });
 });
+app.post('/account/change', (req, res)=>{
+    const authorId = req.cookies.idUser;
+    const fio = req.body.fio;
+    const tel = req.body.tel;
+    const email = req.body.email;
+
+    updateQuery = "UPDATE users SET fio = ?, tel = ?, email = ? WHERE id_user = ?;";
+    db.query(updateQuery, [fio, tel, email, authorId], (err, result)=>{
+        if(err){
+            res.send({ err: err});
+            console.log({err: err});
+        }
+        if(result){
+            res.send({message: result});
+        }
+    });
+});
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")
 });
