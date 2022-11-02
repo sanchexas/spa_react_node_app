@@ -1,5 +1,4 @@
 'use strict';
-//import Cookies from 'universal-cookie';
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -10,7 +9,6 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const multer = require('multer');
-// var fileupload = require("express-fileupload");
 
 
 app.get("/", (req, res)=>{
@@ -24,9 +22,7 @@ const db = con.createPool({
     database: 'remeslo',
 });
 
-// app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(fileupload());
 app.use(cors({
     origin: ["http://localhost:3000"],
     methods: ["GET", "POST"],
@@ -44,9 +40,6 @@ app.use(session({
         expires: 60 * 60 * 24,
     }
 }));
-// app.get("/account",(req, res)=>{
-
-// });
 app.get("/account", (req, res)=>{
     const selectQuery = "SELECT * FROM users WHERE id_user = ?";
     db.query(selectQuery, req.cookies.idUser, (err, result)=>{
@@ -134,25 +127,17 @@ const storage = multer.diskStorage({
     });
     const upload = multer({storage: storage}).single('productImage');
 
-// const upload = multer({ dest: '../client/src/pictures' });
 app.post('/workshop',upload,(req, res)=>{
-    // console.log(req.file.filename);
-
-    console.log(req.body.title + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ");
-
     const title = req.body.title;
     const description = req.body.description;
     const adress = req.body.adress;
     const productImage = '../client/src/pictures' + myFile;
-    // console.log(req.file);
     const price = req.body.price;
     const shortDescription = req.body.shortDescription;
     const authorId = req.cookies.idUser;
 
     const insertQuery = "INSERT INTO products VALUES (null, ?, ?, ?, ?, ?, ?, ?);";
     db.query(insertQuery, [title, description, adress, productImage, price, shortDescription, authorId], (err, result)=>{
-        // console.log(productImage);
-        // res.send(result);
         if(err){
             res.send({ err: err});
             console.log({err: err});
@@ -162,7 +147,6 @@ app.post('/workshop',upload,(req, res)=>{
         }
     });
 });
-
 
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")

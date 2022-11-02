@@ -3,41 +3,10 @@ import '../style.css';
 import  Axios  from 'axios';
 import Cookies from 'universal-cookie';
 import {Link} from 'react-router-dom';
-import { useState } from 'react';
 
 function Workshop() {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [adress, setAdress] = useState('');
-    const [productImage, setProductImage] = useState('');
-    const [price, setPrice] = useState(0);
-    const [shortDescription, setShortDescription] = useState('');
-    // const formData = new FormData();
     Axios.defaults.withCredentials = true;
     const cookies = new Cookies();
-
-    // const onChangeHandler = (event) =>{
-    //     setProductImage(event.target.files[0]);
-    //     console.log(productImage);
-    // }
-    // const submitProduct = () =>{
-    //     // formData.append('productImage', productImage);
-    //     // Axios.post("http://localhost:3001/workshop", { //отсылаем файл на сервер
-    //     // // headers: {
-    //     // //     "Content-Type": "multipart/form-data",
-    //     // //   },
-    //     //     title: title,
-    //     //     description: description,
-    //     //     adress: adress,
-    //     //     productImage: productImage,
-    //     //     price: price,
-    //     //     shortDescription: shortDescription,
-    //     //     authorId : cookies.get('idUser'),
-    //     // }).then((response)=>{
-    //     //     console.log(response);
-    //     // });
-    // }
-
 
     const addProduct = () =>{
         document.getElementById("ap").hidden = false;
