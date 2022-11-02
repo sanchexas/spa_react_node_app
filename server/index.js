@@ -1,4 +1,3 @@
-'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -129,7 +128,7 @@ app.post('/workshop',upload,(req, res)=>{
     const title = req.body.title;
     const description = req.body.description;
     const adress = req.body.adress;
-    const productImage = '../client/src/pictures' + myFile;
+    const productImage = myFile;
     const price = req.body.price;
     const shortDescription = req.body.shortDescription;
     const authorId = req.cookies.idUser;

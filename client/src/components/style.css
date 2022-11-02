@@ -142,6 +142,9 @@ button{
     flex-direction: column;
     justify-content: space-around;
 }
+.product__card img{
+    width: 20%;
+}
 .sign__buttons__block{
     display: flex;
     gap: 15px;

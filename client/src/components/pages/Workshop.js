@@ -24,12 +24,13 @@ function Workshop() {
             if(response.data.message){
                 let resArray = response.data.message;
                 console.log(resArray);
-                setProducts(resArray.map((product) => {
+                
+                setProducts(resArray.map((product) => {  
                     return (
                         <a href="" className="product__card" key={product.id_product}>
                             <span>{product.title}</span>
                             <span>{product.price}</span>
-                            <img src={product.image} alt="productpic"></img>
+                            <img src={require(`../../pictures/${product.image}`)} alt="productpic"></img>
                         </a>
                     );
                 }));
