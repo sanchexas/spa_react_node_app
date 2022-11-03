@@ -28,9 +28,14 @@ function Workshop() {
                 setProducts(resArray.map((product) => {  
                     return (
                         <a href="" className="product__card" key={product.id_product}>
-                            <span>{product.title}</span>
-                            <span>{product.price}</span>
-                            <img src={require(`../../pictures/${product.image}`)} alt="productpic"></img>
+                            <div className="product__card__picture">
+                                <img src={require(`../../pictures/${product.image}`)} alt="productpic"></img>
+                            </div>
+                            <div className='product__card__info'>
+                                <div><span className='product__card__price'>{product.price}</span><span style={{color: 'black',}}> ₽</span></div>
+                                <span>{product.title}</span>
+                                <span>{product.short_description}</span>
+                            </div>
                         </a>
                     );
                 }));
