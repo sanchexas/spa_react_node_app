@@ -28,6 +28,7 @@ function Head(){
             return(
                 <div className='sign__buttons__block'>
                      <Link to={'/account'}>{fio}</Link>
+                     <Link to={'/cart'}>Корзина</Link>
                 </div>
             );
         }
