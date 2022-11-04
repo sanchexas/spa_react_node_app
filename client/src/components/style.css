@@ -128,6 +128,7 @@ button{
 }
 .main__products{
     /* margin-left: 50px; */
+    margin-top: 30px;
     width: 100%;
     display: flex;
     flex-direction: row;

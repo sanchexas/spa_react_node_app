@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import '../style.css';
 import  Axios  from 'axios';
-import Cookies from 'universal-cookie';
+import {Link} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 function NewsPage(){
@@ -11,15 +11,19 @@ function NewsPage(){
         Axios.get('http://localhost:3001/newspage').then((response)=>{
             if(response.data.message){
                 let resArray = response.data.message;
-                console.log(resArray);
                 
                 setProducts(resArray.map((product) => {  
                     return (
-                        <a href="" className="product__card" key={product.id_product}>
-                            <span>{product.title}</span>
-                            <span>{product.price}</span>
-                            <img src={require(`../../pictures/${product.image}`)} alt="productpic"></img>
-                        </a>
+                        <Link to={`/productinfo?id=${product.id_product}`} className="product__card" key={product.id_product}>
+                            <div className="product__card__picture">
+                                <img src={require(`../../pictures/${product.image}`)} alt="productpic"></img>
+                            </div>
+                            <div className='product__card__info'>
+                                <div><span className='product__card__price'>{product.price}</span><span style={{color: 'black',}}> ₽</span></div>
+                                <span>{product.title}</span>
+                                <span>{product.short_description}</span>
+                            </div>
+                        </Link>
                     );
                 }));
             }

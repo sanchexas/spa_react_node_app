@@ -110,9 +110,6 @@ app.post("/signin", (req, res)=>{
                     }
                     if(response){
                         res.cookie('idUser', result[0].id_user); // id пользователя в куки должно соответствовать названию колонки id в бд.
-                        //req.session.cookie.value = result[0].id;  
-                        // console.log(req.cookies);
-                        //res.send(result);
                         res.send({message: result[0].fio});
                     }else{
                         res.send({message: "Некорректные данные"});
@@ -185,6 +182,21 @@ app.get('/newspage',(req, res)=>{
             res.send({message: result});
         }
     } );
+});
+let id;
+//ПОЛУЧЕНИЕ ПАРАМЕТРА ИЗ GET ЗАПРОСА. ("http://localhost:3001/productinfo/?id=${curentId}")
+app.get(`/productinfo`, (req, res)=>{
+    let productId = req.query.id;
+    const selectQuery = "SELECT * FROM products WHERE id_product=?;";
+    db.query(selectQuery, productId, (err, result)=>{
+        if(err){
+            res.send({ err: err});
+            console.log({err: err});
+        }
+        if(result){
+            res.send({message: result});
+        }
+    });
 });
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")

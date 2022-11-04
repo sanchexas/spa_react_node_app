@@ -7,6 +7,7 @@ import About from './pages/About';
 import ModalWindow from './ModalWindow';
 import ModalWindowSignUp from './ModalWindowSignUp';
 import Account from './pages/Account';
+import ProductInfo from './pages/ProductInfo';
 
 function MainContent(){
     return(
@@ -20,6 +21,7 @@ function MainContent(){
                 <Route path='/signin' element={<ModalWindow />}></Route>
                 <Route path='/signup' element={<ModalWindowSignUp />}></Route>
                 <Route path='/account' element={<Account />}></Route>
+                <Route path='/productinfo' element={<ProductInfo />}></Route>
             </Routes>
             
         </div>
