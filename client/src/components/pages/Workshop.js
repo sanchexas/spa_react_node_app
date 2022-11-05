@@ -72,11 +72,11 @@ function Workshop() {
             </div>
             <div id='ap' hidden="true">
                 <form className='add__product'  action='/workshop' encType='multipart/form-data' method='post'>
-                    <input type="text" name="title"></input>
+                    <input type="text" name="title" placeholder='название'></input>
                     <textarea name="description" id="" cols="30" rows="10"></textarea>
-                    <input type="text" name="adress"></input>
+                    <input type="text" name="adress" placeholder='адрес самовывоза'></input>
                     <input type="file" accept="image/*,.png,.jpg,.jpeg" name="productImage"></input>
-                    <input type="number" name="price"></input>
+                    <input type="number" name="price" placeholder='цена'></input>
                     <textarea name="shortDescription" id="" cols="30" rows="10"></textarea>
                     <button type='submit' onClick={submitProduct}>Добавить</button>
                 </form>

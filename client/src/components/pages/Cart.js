@@ -4,20 +4,29 @@ import '../style.css';
 function Cart(){
     const [products, setProducts] = useState();
     const [deleteItem, setDeleteItem] = useState(false)
+    const [quantity, setQuantity] = useState();
     useEffect(()=>{
         let arr = JSON.parse(localStorage.getItem("cart"))
 
         setProducts(arr.map((product, i)=>{
-
+            let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
             function deleteItem(key){ //Удаление товара из корзины 
                 setDeleteItem(true);
-                let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
                 getLocalStorage.splice(key, 1);
                 localStorage.setItem("cart", JSON.stringify(getLocalStorage));
                 setTimeout(()=>{
                     setDeleteItem(false);
                 },1);
-                
+            }
+
+            function plusProduct(key){
+                setQuantity(getLocalStorage[key].quantity += 1);
+                localStorage.setItem("cart", JSON.stringify(getLocalStorage));
+            }
+
+            function minusQuantity(key){
+                setQuantity(getLocalStorage[key].quantity -= 1);
+                localStorage.setItem("cart", JSON.stringify(getLocalStorage));
             }
 
             return(
@@ -27,9 +36,9 @@ function Cart(){
                 </div>
                 <span style={{width:"25%"}}>{product.title}</span>
                 <div className='cart__item__quantity'>
-                    <button>-</button>
-                    <span style={{fontSize: "20px", paddingLeft: "20px", paddingRight: "20px"}}>2</span>
-                    <button>+</button>
+                    <button onClick={() => minusQuantity(i)}>-</button>
+                    <span style={{fontSize: "20px", paddingLeft: "20px", paddingRight: "20px"}}>{getLocalStorage[i].quantity}</span>
+                    <button onClick={() => plusProduct(i)}>+</button>
                 </div>
                 <div className='cart__item__sum'>
                     <div className='cart__item__delete'>
@@ -39,13 +48,13 @@ function Cart(){
                             </svg>
                         </button>
                     </div>
-                    <span>399 ₽</span>
+                    <span>{product.price} ₽</span>
                 </div>
             </div>
             );
         }
     ))
-    },[deleteItem])
+    },[deleteItem, quantity])
 
     return(
         <div className='cart'>
@@ -54,7 +63,7 @@ function Cart(){
                     </div>
                     <div className='cart__order__block'>
                         <div className='cart__order__info'>
-                            <span>Общая сумма: 2590 ₽</span>
+                            <span>Общая сумма: 1821 ₽</span>
                             <div className='card__button' >
                                 <button style={{opacity: "1", width: "100%", height: "50px", fontWeight: "700", fontSize: "20px", letterSpacing: "1px"}}>заказать</button>
                             </div>

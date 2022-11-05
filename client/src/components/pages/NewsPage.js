@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import '../style.css';
 import  Axios  from 'axios';
-import {Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 function NewsPage(){
@@ -17,8 +17,12 @@ function NewsPage(){
 
                     const addToCart = () =>{ // ДОБАВЛЯЕМ В КОРЗИНУ
                         let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
+                        product.quantity = 1;
                         getLocalStorage.push(product)
-                        localStorage.setItem("cart", JSON.stringify(getLocalStorage))
+                        let arrJSON = JSON.stringify(getLocalStorage)
+                        // arrJSON.i.push({quantity: 1})
+                        localStorage.setItem("cart", arrJSON);
+
                     }
 
 

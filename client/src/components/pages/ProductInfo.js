@@ -15,10 +15,10 @@ const ProductInfo = () =>{
                     return(
                         <div>
                             <h1>{response.data.message[0].title}</h1>
-                            <img src={require(`../../pictures/${response.data.message[0].image}`)} alt='productpic'></img>
+                            <img style={{width: "500px"}} src={require(`../../pictures/${response.data.message[0].image}`)} alt='productpic'></img>
                             <p>{response.data.message[0].description}</p>
                             <p>{response.data.message[0].adress}</p>
-                            <p>{response.data.message[0].price}</p>
+                            <p>{response.data.message[0].price} руб</p>
                         </div>
                     );
                 });
