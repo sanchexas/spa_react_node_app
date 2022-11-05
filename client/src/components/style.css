@@ -84,6 +84,7 @@ button{
     display: flex;
     align-items: center;
     border-radius: 5px;
+    font-family: 'Montserrat';
 }
 .head__button{
     background: white;
@@ -112,6 +113,27 @@ button{
     color: black;
     
 }
+.card__button{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+.card__button button{
+    opacity: 0;
+    border: solid 3px rgb(255, 196, 0);
+    width: 40%;
+    height: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 15px;
+    color: rgb(43, 43, 43);
+    transition: all 0.2s;
+}
+.card__button button:hover{
+    background: rgb(255, 196, 0);
+}
 .fake__button:hover{
     background: rgb(255, 208, 54);
 }
@@ -138,27 +160,30 @@ button{
 }
 .product__card{
     width: 25%;
-    height: 450px;
+    height: 550px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 .product__card__link{
-    height: 400px;
+    height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+.product__card:hover .card__button button{
+    opacity: 1;
+}
 .product__card:hover{
-    box-shadow: 0px 0px 15px rgb(217, 217, 217);
+    box-shadow: 0px 0px 15px rgb(233, 233, 233);
 }
 .product__card__picture{
-    padding: 15px;
     width: 90%;
     height: 75%;
     overflow: hidden;    
     position: relative;
+    padding: 10px;
 }
 .product__card__picture img{
     border-radius: 5px;
@@ -169,7 +194,7 @@ button{
 .product__card__info{
     padding-bottom: 15px;
     width: 90%;
-    height: 25%;
+    height: 20%;
     font-size: 15px;
     display: flex;
     flex-direction: column;
@@ -252,6 +277,49 @@ button{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.cart{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+}
+.cart__items{
+    width: 70%;
+    margin-left: 10px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.cart__item{
+    width: 100%;
+    height: 160px;
+    box-shadow: 0px 2px 5px rgb(223, 223, 223);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+}
+.cart__order__block{
+    height: 500px;
+    width: 20%;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 50px
+}
+.cart__order__info{
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 20px;
+    font-weight: 700;
+}
+.cart__image{
+    height: ;
 }
 .sign__up__form{
     height: 600px;

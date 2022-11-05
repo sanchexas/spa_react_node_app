@@ -25,17 +25,19 @@ function NewsPage(){
                     return (
                         <div className='product__card'>
                             <Link to={`/productinfo?id=${product.id_product}`} className="product__card__link" key={product.id_product}>
-                            <div className="product__card__picture">
-                                <img src={require(`../../pictures/${product.image}`)} alt="productpic"></img>
-                            </div>
-                            <div className='product__card__info'>
-                                <div><span className='product__card__price'>{product.price}</span><span style={{color: 'black',}}> ₽</span></div>
-                                <span>{product.title}</span>
-                                <span>{product.short_description}</span>
-                                
-                            </div>
+                                <div className="product__card__picture">
+                                    <img src={require(`../../pictures/${product.image}`)} alt="productpic"></img>
+                                </div>
+                                <div className='product__card__info'>
+                                    <div><span className='product__card__price'>{product.price}</span><span style={{color: 'black',}}> ₽</span></div>
+                                    <span>{product.title}</span>
+                                    <span>{product.short_description}</span>
+                                    
+                                </div>
                             </Link>
-                            <button onClick={addToCart} className='fake__button head__signin__button'>В корзину</button>
+                            <div className='card__button'>
+                                <button onClick={addToCart} >В корзину</button>
+                            </div>
                         </div>
                         
                     );
