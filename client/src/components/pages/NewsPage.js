@@ -12,7 +12,7 @@ function NewsPage(){
                 let resArray = response.data.message;
 
 
-                setProducts(resArray.map((product) => {  //ВЫВОДИМ ВСЕ ТОВАРЫ ИЗ response
+                setProducts(resArray.map((product, i) => {  //ВЫВОДИМ ВСЕ ТОВАРЫ ИЗ response
                     
 
                     const addToCart = () =>{ // ДОБАВЛЯЕМ В КОРЗИНУ
@@ -23,7 +23,7 @@ function NewsPage(){
 
 
                     return (
-                        <div className='product__card'>
+                        <div className='product__card' key={i}>
                             <Link to={`/productinfo?id=${product.id_product}`} className="product__card__link" key={product.id_product}>
                                 <div className="product__card__picture">
                                     <img src={require(`../../pictures/${product.image}`)} alt="productpic"></img>
