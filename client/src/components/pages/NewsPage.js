@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 
 function NewsPage(){
     const [products, setProducts] = useState([]);
+    const [generalPrice, setGeneralPrice] = useState(0);
+    const generalPriceStorage = localStorage.setItem("general_price", generalPrice);
     useEffect(()=>{
         Axios.get('http://localhost:3001/newspage').then((response)=>{
             if(response.data.message){
@@ -18,6 +20,8 @@ function NewsPage(){
                     const addToCart = () =>{ // ДОБАВЛЯЕМ В КОРЗИНУ
                         let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
                         product.quantity = 1;
+                        product.fullPrice = product.price;
+                        setGeneralPrice(generalPrice + product.price);
                         getLocalStorage.push(product)
                         let arrJSON = JSON.stringify(getLocalStorage)
                         // arrJSON.i.push({quantity: 1})
@@ -48,7 +52,7 @@ function NewsPage(){
                 }));
             }
         });
-    }, []);
+    }, [generalPrice]);
 
     return(
     // <h1 className="page__title">Новинки</h1>

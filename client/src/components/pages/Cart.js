@@ -5,11 +5,13 @@ function Cart(){
     const [products, setProducts] = useState();
     const [deleteItem, setDeleteItem] = useState(false)
     const [quantity, setQuantity] = useState();
+    const [fullPrice, setFullPrice] = useState();
+    const [generalPrice, setGeneralPrice] = useState(JSON.parse(localStorage.getItem("general_price")));
     useEffect(()=>{
-        let arr = JSON.parse(localStorage.getItem("cart"))
-
-        setProducts(arr.map((product, i)=>{
-            let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
+        let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
+        localStorage.setItem("general_price", JSON.stringify(generalPrice));
+        setProducts(getLocalStorage.map((product, i)=>{
+            
             function deleteItem(key){ //Удаление товара из корзины 
                 setDeleteItem(true);
                 getLocalStorage.splice(key, 1);
@@ -21,11 +23,15 @@ function Cart(){
 
             function plusProduct(key){
                 setQuantity(getLocalStorage[key].quantity += 1);
+                setFullPrice(getLocalStorage[key].fullPrice += getLocalStorage[key].price);
+                setGeneralPrice(generalPrice + getLocalStorage[key].price);
                 localStorage.setItem("cart", JSON.stringify(getLocalStorage));
             }
 
             function minusQuantity(key){
                 setQuantity(getLocalStorage[key].quantity -= 1);
+                setGeneralPrice(generalPrice - getLocalStorage[key].price);
+                setFullPrice(getLocalStorage[key].fullPrice -= getLocalStorage[key].price);
                 localStorage.setItem("cart", JSON.stringify(getLocalStorage));
             }
 
@@ -48,13 +54,13 @@ function Cart(){
                             </svg>
                         </button>
                     </div>
-                    <span>{product.price} ₽</span>
+                    <span>{product.fullPrice} ₽</span>
                 </div>
             </div>
             );
         }
     ))
-    },[deleteItem, quantity])
+    },[deleteItem, quantity, fullPrice, generalPrice])
 
     return(
         <div className='cart'>
@@ -63,7 +69,7 @@ function Cart(){
                     </div>
                     <div className='cart__order__block'>
                         <div className='cart__order__info'>
-                            <span>Общая сумма: 1821 ₽</span>
+                            <span>Общая сумма: {generalPrice} ₽</span>
                             <div className='card__button' >
                                 <button style={{opacity: "1", width: "100%", height: "50px", fontWeight: "700", fontSize: "20px", letterSpacing: "1px"}}>заказать</button>
                             </div>
