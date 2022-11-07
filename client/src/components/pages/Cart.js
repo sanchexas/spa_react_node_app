@@ -11,9 +11,13 @@ function Cart(){
         let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
         localStorage.setItem("general_price", JSON.stringify(generalPrice));
         setProducts(getLocalStorage.map((product, i)=>{
+
             function deleteItem(key){ //Удаление товара из корзины 
                 setDeleteItem(true);
+                let getLocalStorageGeneralPrice = JSON.parse(localStorage.getItem("general_price"));
+                setGeneralPrice(getLocalStorageGeneralPrice - getLocalStorage[key].fullPrice);
                 getLocalStorage.splice(key, 1);
+                localStorage.setItem("general_price", JSON.stringify(generalPrice));
                 localStorage.setItem("cart", JSON.stringify(getLocalStorage));
                 setTimeout(()=>{
                     setDeleteItem(false);

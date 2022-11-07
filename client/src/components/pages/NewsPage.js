@@ -6,25 +6,29 @@ import { useEffect, useState } from 'react';
 
 function NewsPage(){
     const [products, setProducts] = useState([]);
-    const [generalPrice, setGeneralPrice] = useState(0);
-    const generalPriceStorage = localStorage.setItem("general_price", generalPrice);
+    // const [generalPrice, setGeneralPrice] = useState();
+    
     useEffect(()=>{
+        if(!localStorage.getItem("general_price")){
+            localStorage.setItem("general_price", 0);
+        }   
         Axios.get('http://localhost:3001/newspage').then((response)=>{
             if(response.data.message){
                 let resArray = response.data.message;
-
 
                 setProducts(resArray.map((product, i) => {  //ВЫВОДИМ ВСЕ ТОВАРЫ ИЗ response
                     
 
                     const addToCart = () =>{ // ДОБАВЛЯЕМ В КОРЗИНУ
                         let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
+                        let getLocalStorageGeneralPrice = JSON.parse(localStorage.getItem("general_price"))
+                        console.log(getLocalStorageGeneralPrice)
                         product.quantity = 1;
                         product.fullPrice = product.price;
-                        setGeneralPrice(generalPrice + product.price);
+                        let generalPrice = getLocalStorageGeneralPrice + product.price
                         getLocalStorage.push(product)
                         let arrJSON = JSON.stringify(getLocalStorage)
-                        // arrJSON.i.push({quantity: 1})
+                        localStorage.setItem("general_price", generalPrice)
                         localStorage.setItem("cart", arrJSON);
 
                     }
@@ -52,7 +56,7 @@ function NewsPage(){
                 }));
             }
         });
-    }, [generalPrice]);
+    }, []);
 
     return(
     // <h1 className="page__title">Новинки</h1>
