@@ -11,7 +11,6 @@ function Cart(){
         let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
         localStorage.setItem("general_price", JSON.stringify(generalPrice));
         setProducts(getLocalStorage.map((product, i)=>{
-            
             function deleteItem(key){ //Удаление товара из корзины 
                 setDeleteItem(true);
                 getLocalStorage.splice(key, 1);
