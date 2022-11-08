@@ -1,6 +1,7 @@
 import '../style.css';
 
 function Catalog(){
+    console.log("dssdds")
     return(
     // <h1 className="page__title">Новинки</h1>
     <h1>CATALOG</h1>

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import '../style.css';
 import  Axios  from 'axios';
 import { Link} from 'react-router-dom';
@@ -6,31 +5,47 @@ import { useEffect, useState } from 'react';
 
 function NewsPage(){
     const [products, setProducts] = useState([]);
+    let [cartProductsId, setCartProductsId] = useState([]);
+    let [lockButton, setLockButton] = useState();
+    // const [inCart, setInCart] = useState();
     // const [generalPrice, setGeneralPrice] = useState();
-    
+
     useEffect(()=>{
-        if(!localStorage.getItem("general_price")){
-            localStorage.setItem("general_price", 0);
-        }   
         Axios.get('http://localhost:3001/newspage').then((response)=>{
+            let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
+            
             if(response.data.message){
                 let resArray = response.data.message;
-
+                if(!localStorage.getItem("general_price")){
+                    localStorage.setItem("general_price", 0);
+                }  
+                function getArrayOfIdFromCart(){
+                    let arrOfLocalStorage = Object.entries(getLocalStorage); //преобразование cart в массив и его перебор с получением id продуктов, которые лежат в корзине
+                    arrOfLocalStorage.map((element)=>{
+                        setCartProductsId(cartProductsId.push(element[1].id_product));
+                    });
+                    console.log(cartProductsId)
+                }
+                getArrayOfIdFromCart()
                 setProducts(resArray.map((product, i) => {  //ВЫВОДИМ ВСЕ ТОВАРЫ ИЗ response
-                    
-
-                    const addToCart = () =>{ // ДОБАВЛЯЕМ В КОРЗИНУ
-                        let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
-                        let getLocalStorageGeneralPrice = JSON.parse(localStorage.getItem("general_price"))
-                        console.log(getLocalStorageGeneralPrice)
+                    cartProductsId.map((cp, j)=>{
+                        if(product.id_product == cp){
+                            console.log("Содержится " + product.id_product)
+                        }
+                        
+                    })
+                    function addToCart (key) { // ДОБАВЛЯЕМ В КОРЗИНУ
+                        let getLocalStorageGeneralPrice = JSON.parse(localStorage.getItem("general_price"));
                         product.quantity = 1;
+                        product.inCart = true;
                         product.fullPrice = product.price;
                         let generalPrice = getLocalStorageGeneralPrice + product.price
                         getLocalStorage.push(product)
+                       
                         let arrJSON = JSON.stringify(getLocalStorage)
                         localStorage.setItem("general_price", generalPrice)
                         localStorage.setItem("cart", arrJSON);
-
+                        console.log(product)
                     }
 
 
@@ -48,7 +63,7 @@ function NewsPage(){
                                 </div>
                             </Link>
                             <div className='card__button'>
-                                <button onClick={addToCart} >В корзину</button>
+                                <button   onClick={()=>addToCart(i)} >В корзину </button>
                             </div>
                         </div>
                         

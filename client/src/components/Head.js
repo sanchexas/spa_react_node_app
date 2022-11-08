@@ -10,7 +10,6 @@ function Head(){
     const [fio, setFio] = useState('');
     useEffect(()=>{
             Axios.get('http://localhost:3001/signin').then((response)=>{
-                console.log(response);
                 setFio(response.data.message);
             });
         }, []);
@@ -27,8 +26,8 @@ function Head(){
         else{
             return(
                 <div className='sign__buttons__block'>
-                     <Link to={'/account'}>{fio}</Link>
-                     <Link to={'/cart'}>Корзина</Link>
+                    <Link to={'/account'}>{fio}</Link>
+                    <Link to={'/cart'}>Корзина</Link>
                 </div>
             );
         }

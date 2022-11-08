@@ -369,6 +369,9 @@ button{
     width: 100%;
     height: 100%;
 }
+.lock__button{
+    background: red;
+}
 .sign__up__form{
     height: 600px;
 }

@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 function Content(){
     return(
+        
         <div className="content">
             <Head />
             <MainContent />

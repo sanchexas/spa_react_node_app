@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import  Axios  from 'axios';
+import {useNavigate} from 'react-router-dom';
 import '../style.css';
 
 function Cart(){
@@ -7,6 +9,21 @@ function Cart(){
     const [quantity, setQuantity] = useState();
     const [fullPrice, setFullPrice] = useState();
     const [generalPrice, setGeneralPrice] = useState(JSON.parse(localStorage.getItem("general_price")));
+
+    const redirect = useNavigate();
+
+    function sendOrder(){
+        // Axios.post("http://localhost:3001/sendorder", {
+
+        // }).then((response)=>{
+
+        // });
+        localStorage.clear("cart");
+        localStorage.clear("general_price");
+        redirect("/");
+
+    }
+
     useEffect(()=>{
         let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
         localStorage.setItem("general_price", JSON.stringify(generalPrice));
@@ -74,7 +91,7 @@ function Cart(){
                         <div className='cart__order__info'>
                             <span>Общая сумма: {generalPrice} ₽</span>
                             <div className='card__button' >
-                                <button style={{opacity: "1", width: "100%", height: "50px", fontWeight: "700", fontSize: "20px", letterSpacing: "1px"}}>заказать</button>
+                                <button onClick={()=> sendOrder()} style={{opacity: "1", width: "100%", height: "50px", fontWeight: "700", fontSize: "20px", letterSpacing: "1px"}}>заказать</button>
                             </div>
                         </div>
                     </div>
