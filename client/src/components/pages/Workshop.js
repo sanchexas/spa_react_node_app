@@ -23,7 +23,6 @@ function Workshop() {
         Axios.get('http://localhost:3001/workshop').then((response)=>{
             if(response.data.message){
                 let resArray = response.data.message;
-                console.log(resArray);
                 
                 setProducts(resArray.map((product) => {  
                     return (
@@ -48,6 +47,7 @@ function Workshop() {
         form.addEventListener("submit", (e) => {
             e.preventDefault();
             const formData = new FormData(form);
+            console.log(formData)
             Axios.post("http://localhost:3001/workshop", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
