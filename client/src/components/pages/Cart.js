@@ -13,15 +13,14 @@ function Cart(){
     const redirect = useNavigate();
 
     function sendOrder(){
-        // Axios.post("http://localhost:3001/sendorder", {
+        Axios.post("http://localhost:3001/sendorder", {
+            
+        }).then((response)=>{
 
-        // }).then((response)=>{
-
-        // });
+        });
         localStorage.clear("cart");
         localStorage.clear("general_price");
         redirect("/");
-
     }
 
     useEffect(()=>{

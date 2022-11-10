@@ -67,8 +67,8 @@ function NewsPage(){
                                     
                                 </div>
                             </Link>
-                            <div className='card__button'>
-                                <button  className={(product.inCart === inCart) ? "lock__button" : ""} onClick={()=>addToCart(i)} >В корзину </button>
+                            <div className={(product.inCart === inCart) ? "lock__button" : "card__button"}>
+                                <button  disabled={(product.inCart === inCart) ? "disabled" : ""} onClick={()=>addToCart(i)}>{(product.inCart === inCart) ? "В корзине" : "В корзину"} </button>
                             </div>
                         </div>
                         

@@ -370,7 +370,18 @@ button{
     height: 100%;
 }
 .lock__button{
-    background: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    height: 35px;
+    background: rgb(255, 255, 255);
+    border: none;
+    color: black;
+}
+.lock__button button{
+    font-size: 20px;
+    cursor:auto;
 }
 .sign__up__form{
     height: 600px;
