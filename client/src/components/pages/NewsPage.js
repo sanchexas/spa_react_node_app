@@ -32,11 +32,10 @@ function NewsPage(){
                             if(product.id_product === cp){
                                 setInCart(true);
                                 product.inCart = inCart; // присваивание стиля кнопкам товаров, которые лежат в корзине
-                                setTimeout(()=>{
-                                    setInCart(false);
-                                },1)
+                                
                             }
                         })
+                        // console.log(product)
                     function addToCart (key) { // ДОБАВЛЯЕМ В КОРЗИНУ
                         let getLocalStorageGeneralPrice = JSON.parse(localStorage.getItem("general_price"));
                         product.quantity = 1;
@@ -50,9 +49,8 @@ function NewsPage(){
                         setInCart(true); // Присвоить кнопке "в корзине"
                         setTimeout(()=>{
                             setInCart(false);
-                        },1);
+                        },100);
                     }
-
 
                     return (
                         <div className='product__card' key={i}>

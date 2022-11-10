@@ -10,7 +10,6 @@ function ModalWindow() {
     const [password, setPassword] = useState('');
     const [login, setLogin] = useState('');
     const redirect = useNavigate();
-    const cookies = new Cookies();
 
     Axios.defaults.withCredentials = true;
 
