@@ -7,6 +7,7 @@ function NewsPage(){
     const [products, setProducts] = useState([]);
     let [cartProductsId, setCartProductsId] = useState([]);
     const [inCart, setInCart] = useState(false);
+    Axios.defaults.withCredentials = true;
     useEffect(()=>{
         Axios.get('http://localhost:3001/newspage').then((response)=>{
             let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
@@ -32,7 +33,6 @@ function NewsPage(){
                             if(product.id_product === cp){
                                 setInCart(true);
                                 product.inCart = inCart; // присваивание стиля кнопкам товаров, которые лежат в корзине
-                                
                             }
                         })
                         // console.log(product)

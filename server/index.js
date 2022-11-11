@@ -198,6 +198,23 @@ app.get(`/productinfo`, (req, res)=>{
         }
     });
 });
+
+app.post('/sendorder',(req, res)=>{
+    let products = req.body.products;
+    let generalPrice = req.body.general_price;
+    let buyerId = req.body.buyer_id;
+    let date = req.body.date;
+    const insertQuery = "INSERT INTO orders VALUES (null, ?, ?, ?, ?);";
+    db.query(insertQuery, [products, generalPrice, buyerId, date], (err, result)=>{
+        if(err){
+            res.send({ err: err});
+            console.log({err: err});
+        }
+        if(result){
+            res.send({message: result});
+        }
+    });
+});
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")
 });

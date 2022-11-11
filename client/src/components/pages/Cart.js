@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import  Axios  from 'axios';
+import Cookies from 'universal-cookie';
 import {useNavigate} from 'react-router-dom';
 import '../style.css';
 
@@ -9,25 +10,41 @@ function Cart(){
     const [quantity, setQuantity] = useState();
     const [fullPrice, setFullPrice] = useState();
     const [generalPrice, setGeneralPrice] = useState(JSON.parse(localStorage.getItem("general_price")));
-
     const redirect = useNavigate();
+    const cookies = new Cookies();
+    Axios.defaults.withCredentials = true;
 
     function sendOrder(){
+        let date = new Date();
+        let dateISOS = date.toISOString().split('T')[0];
+        let getCartItems = JSON.parse(localStorage.getItem("cart"));
+        for(let i=0; i<getCartItems.length; i++){
+            delete getCartItems[i].description;
+            delete getCartItems[i].short_description;
+            delete getCartItems[i].adress;
+            delete getCartItems[i].image;
+        }
+        let cartItemsToJSON = JSON.stringify(getCartItems);
+        let clearJSONChars = cartItemsToJSON.replace(/[^\d\s:,a-zа-яё]/gi, "");
         Axios.post("http://localhost:3001/sendorder", {
-            
+            products: `${clearJSONChars}`,
+            general_price: generalPrice,
+            buyer_id: cookies.get("idUser"),
+            date: dateISOS
         }).then((response)=>{
-
+            
         });
         localStorage.clear("cart");
         localStorage.clear("general_price");
         redirect("/");
     }
+    let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
 
     useEffect(()=>{
-        let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
+        console.log(getLocalStorage)
         localStorage.setItem("general_price", JSON.stringify(generalPrice));
         setProducts(getLocalStorage.map((product, i)=>{
-
+            
             function deleteItem(key){ //Удаление товара из корзины 
                 setDeleteItem(true);
                 let getLocalStorageGeneralPrice = JSON.parse(localStorage.getItem("general_price"));

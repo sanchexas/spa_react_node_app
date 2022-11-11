@@ -47,7 +47,6 @@ function Workshop() {
         form.addEventListener("submit", (e) => {
             e.preventDefault();
             const formData = new FormData(form);
-            console.log(formData)
             Axios.post("http://localhost:3001/workshop", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",

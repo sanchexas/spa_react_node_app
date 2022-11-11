@@ -9,8 +9,7 @@ function LeftBlock(){
         <div className="navblock__wrap">
             <img src={logo} alt="remeslo logo" className="logo"></img>
             <div className="navigation"> 
-                <Link to="/" className="nav__link">новинки</Link>
-                <Link to="/catalog" className="nav__link">каталог</Link>
+                <Link to="/" className="nav__link">каталог</Link>
                 <Link to="/workshop" className="nav__link">мастерская</Link>
                 <Link to="/about" className="nav__link">о нас</Link>
             </div>
