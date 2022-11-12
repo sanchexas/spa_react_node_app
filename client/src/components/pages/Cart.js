@@ -41,7 +41,6 @@ function Cart(){
     let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
 
     useEffect(()=>{
-        console.log(getLocalStorage)
         localStorage.setItem("general_price", JSON.stringify(generalPrice));
         setProducts(getLocalStorage.map((product, i)=>{
             
@@ -65,11 +64,15 @@ function Cart(){
             }
 
             function minusQuantity(key){
-                setQuantity(getLocalStorage[key].quantity -= 1);
-                setGeneralPrice(generalPrice - getLocalStorage[key].price);
-                setFullPrice(getLocalStorage[key].fullPrice -= getLocalStorage[key].price);
-                localStorage.setItem("cart", JSON.stringify(getLocalStorage));
+                if(getLocalStorage[key].quantity > 1){
+                    setQuantity(getLocalStorage[key].quantity -= 1);
+                    setGeneralPrice(generalPrice - getLocalStorage[key].price);
+                    setFullPrice(getLocalStorage[key].fullPrice -= getLocalStorage[key].price);
+                    localStorage.setItem("cart", JSON.stringify(getLocalStorage));
+                }
+                
             }
+
 
             return(
             <div className='cart__item' key={i}>
@@ -92,6 +95,7 @@ function Cart(){
                     </div>
                     <span>{product.fullPrice} ₽</span>
                 </div>
+                <script src='./Cart.js'></script>
             </div>
             );
         }
