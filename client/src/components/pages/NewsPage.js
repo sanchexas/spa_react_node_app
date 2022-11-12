@@ -7,6 +7,7 @@ function NewsPage(){
     const [products, setProducts] = useState([]);
     let [cartProductsId, setCartProductsId] = useState([]);
     const [inCart, setInCart] = useState(false);
+    const [cartCount, setCartCount] = useState(0);
     Axios.defaults.withCredentials = true;
     useEffect(()=>{
         Axios.get('http://localhost:3001/newspage').then((response)=>{
@@ -24,10 +25,10 @@ function NewsPage(){
                         let arr = cartProductsId.push(element[1].id_product)
                         setCartProductsId(cartProductsId.concat(arr));
                     });
+                    
                 }
                 
                 getArrayOfIdFromCart();
-
                 setProducts(resArray.map((product, i) => {  //ВЫВОДИМ ВСЕ ТОВАРЫ ИЗ response
                         cartProductsId.map((cp)=>{
                             if(product.id_product === cp){
@@ -35,11 +36,10 @@ function NewsPage(){
                                 product.inCart = inCart; // присваивание стиля кнопкам товаров, которые лежат в корзине
                             }
                         })
-                        // console.log(product)
                     function addToCart (key) { // ДОБАВЛЯЕМ В КОРЗИНУ
                         let getLocalStorageGeneralPrice = JSON.parse(localStorage.getItem("general_price"));
                         product.quantity = 1;
-                        
+                        setCartCount(getLocalStorage.length);
                         product.fullPrice = product.price;
                         let generalPrice = getLocalStorageGeneralPrice + product.price;
                         getLocalStorage.push(product);

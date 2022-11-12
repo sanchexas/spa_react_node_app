@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import  Axios  from 'axios';
+import Axios  from 'axios';
 import Cookies from 'universal-cookie';
 import {useNavigate} from 'react-router-dom';
 import '../style.css';
@@ -32,7 +32,7 @@ function Cart(){
             buyer_id: cookies.get("idUser"),
             date: dateISOS
         }).then((response)=>{
-            
+
         });
         localStorage.clear("cart");
         localStorage.clear("general_price");

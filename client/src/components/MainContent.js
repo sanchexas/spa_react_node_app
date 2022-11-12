@@ -12,7 +12,6 @@ import Cart from './pages/Cart';
 function MainContent(){
     return(
         <div className="main__content">
-            {/* <LeftBlock /> */}
             <Routes>
                 <Route path='/' index element={<NewsPage />}></Route>
                 <Route path='/workshop' element={<Workshop />}></Route>
