@@ -95,7 +95,6 @@ function Cart(){
                     </div>
                     <span>{product.fullPrice} ₽</span>
                 </div>
-                <script src='./Cart.js'></script>
             </div>
             );
         }
