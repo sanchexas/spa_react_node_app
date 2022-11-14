@@ -427,7 +427,6 @@ input{
 .account__wrap{
     width: 100%;
     /* height: 100vh; */
-    background: rgb(230, 230, 230);
     display: flex;
 }
 .account__block{

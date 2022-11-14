@@ -1,5 +1,5 @@
 import  Axios  from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './style.css';
 import Cookies from 'universal-cookie';
 import {useNavigate} from 'react-router-dom';
@@ -13,17 +13,17 @@ function ModalWindow() {
 
     Axios.defaults.withCredentials = true;
 
-    // useEffect(()=>{
-    //     Axios.get('http://localhost:3001/signin').then((response)=>{
-    //         console.log(response.data)
-    //         if(response.data.signin === true){
-    //             setLogin(response.data.user[0].fio);
-    //         }
-    //         if(response.data.message){
-    //             setLogin(response.data.message);
-    //         }
-    //     });
-    // }, []);
+    useEffect(()=>{
+        Axios.get('http://localhost:3001/signin').then((response)=>{
+            console.log(response.data)
+            if(response.data.signin === true){
+                setLogin(response.data.user[0].fio);
+            }
+            if(response.data.message){
+                setLogin(response.data.message);
+            }
+        });
+    }, []);
 
     const submitSignInForm = () => {
         Axios.post('http://localhost:3001/signin', {

@@ -8,8 +8,10 @@ import ModalWindowSignUp from './ModalWindowSignUp';
 import Account from './pages/Account';
 import ProductInfo from './pages/ProductInfo';
 import Cart from './pages/Cart';
+import { useState } from 'react';
 
 function MainContent(){
+    const [cq, setCq] = useState(0);
     return(
         <div className="main__content">
             <Routes>

@@ -14,6 +14,6 @@ root.render(
       <LeftBlock />
       <Content />
     </BrowserRouter>
-  // </React.StrictMode>
+  //  </React.StrictMode>
 );
 

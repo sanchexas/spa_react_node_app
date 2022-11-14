@@ -2,9 +2,10 @@ import './style.css';
 import Head from './Head';
 import MainContent from './MainContent';
 import ModalWindow from './ModalWindow';
-import { useState } from 'react';
+import { useState, updateData } from 'react';
 
 function Content(){
+    
     return(
         
         <div className="content">
