@@ -9,13 +9,19 @@ import Account from './pages/Account';
 import ProductInfo from './pages/ProductInfo';
 import Cart from './pages/Cart';
 import { useState } from 'react';
+import Head from './Head';
 
 function MainContent(){
-    const [cq, setCq] = useState(0);
+    let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
+    const [cq, setCq] = useState(getLocalStorage.length);
+    const handlerQuantity = (q) =>{
+        setCq(q)
+    }
     return(
         <div className="main__content">
+            <Head cq={cq}/>
             <Routes>
-                <Route path='/' index element={<NewsPage />}></Route>
+                <Route path='/' index element={<NewsPage cartQuantityCB={handlerQuantity}/>}></Route>
                 <Route path='/workshop' element={<Workshop />}></Route>
                 <Route path='/about' element={<About />}></Route>
                 <Route path='/signin' element={<ModalWindow />}></Route>

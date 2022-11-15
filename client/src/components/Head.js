@@ -7,21 +7,15 @@ import NewsPage from './pages/NewsPage';
 
 
 function Head({cq}){
+    
     Axios.defaults.withCredentials = true;
     const [fio, setFio] = useState('');
-    // let [updateLocalStorage, setUpdateLocalStorage] = useState()
 
     useEffect(()=>{
-        
             Axios.get('http://localhost:3001/signin').then((response)=>{
                 setFio(response.data.message);
             });
-            setTimeout(()=>{
-                // let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
-                // setCartCounter(getLocalStorage.length);
-                // setUpdateLocalStorage(getLocalStorage);
-            }, 1);
-        }, []); // updateLocalStorage
+        }, []); 
     function regBlock(){
         const cookies = new Cookies();
         if(!cookies.get('idUser')){

@@ -4,15 +4,13 @@ import { Link} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Content from '../Content';
 
-function NewsPage({cq}){
+function NewsPage({cartQuantityCB}){
     const [products, setProducts] = useState([]);
     let [cartProductsId, setCartProductsId] = useState([]);
     const [inCart, setInCart] = useState(false);
-    const [cartCounter, setCartCounter] = useState(0);
     //передаем количество товаров в корзине MainContent
-    let [updateLocalStorage, setUpdateLocalStorage] = useState()
-    const handleCq = (event) =>{
-        cq(cartCounter)
+    const handlerQuantity = (cq) =>{
+       cartQuantityCB(cq)                     
     }
     Axios.defaults.withCredentials = true;
     useEffect(()=>{
@@ -49,12 +47,9 @@ function NewsPage({cq}){
                         let generalPrice = getLocalStorageGeneralPrice + product.price;
                         getLocalStorage.push(product);
                         let arrJSON = JSON.stringify(getLocalStorage);
+                        handlerQuantity(getLocalStorage.length)
                         localStorage.setItem("general_price", generalPrice);
                         localStorage.setItem("cart", arrJSON);
-                            setCartCounter(getLocalStorage.length);
-                            setUpdateLocalStorage(getLocalStorage);
-                            
-                            
                         setInCart(true); // Присвоить кнопке "в корзине"
                         setTimeout(()=>{
                             setInCart(false);

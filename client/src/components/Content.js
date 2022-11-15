@@ -9,7 +9,7 @@ function Content(){
     return(
         
         <div className="content">
-            <Head />
+            
             <MainContent />
         </div>
     );
