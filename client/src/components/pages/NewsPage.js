@@ -2,7 +2,6 @@ import '../style.css';
 import  Axios  from 'axios';
 import { Link} from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Content from '../Content';
 
 function NewsPage({cartQuantityCB}){
     const [products, setProducts] = useState([]);

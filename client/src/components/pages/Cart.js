@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie';
 import {useNavigate} from 'react-router-dom';
 import '../style.css';
 
-function Cart(){
+function Cart({cartQuantityCB}){
     const [products, setProducts] = useState();
     const [deleteItem, setDeleteItem] = useState(false)
     const [quantity, setQuantity] = useState();
@@ -13,6 +13,9 @@ function Cart(){
     const redirect = useNavigate();
     const cookies = new Cookies();
     Axios.defaults.withCredentials = true;
+    const handlerQuantity = (cq) =>{
+        cartQuantityCB(cq)                     
+    }
 
     function sendOrder(){
         let date = new Date();
@@ -51,6 +54,7 @@ function Cart(){
                 getLocalStorage.splice(key, 1);
                 localStorage.setItem("general_price", JSON.stringify(generalPrice));
                 localStorage.setItem("cart", JSON.stringify(getLocalStorage));
+                handlerQuantity(getLocalStorage.length)
                 setTimeout(()=>{
                     setDeleteItem(false);
                 },1);
