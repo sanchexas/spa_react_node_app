@@ -63,8 +63,11 @@ function Account(){
                     <p>{fio}</p>
                     <p>{tel}</p>
                     <p>{email}</p>
-                    <button onClick={editProfile}>Редактировать</button>
-                    <button onClick={exit}>Выйти</button>
+                    <div className='buttons__between'>
+                        <button className='simple__button' onClick={editProfile}>Редактировать</button>
+                        <button className='exit__button' onClick={exit}>Выйти</button>
+                    </div>
+                    
                 </div>
                 <div className='edit__account__info' id='eai' hidden>
                     <input type="text" value={fio} onChange={(event)=>{setFio(event.target.value)}}/>
@@ -75,7 +78,9 @@ function Account(){
                 </div>
             </div>
             <div className='account__story'>
-
+                <div className='orderInfo'>
+                    <p>sdsdsd</p>
+                </div>
             </div>
         </div>
     );

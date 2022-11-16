@@ -9,7 +9,7 @@ function NewsPage({cartQuantityCB}){
     const [inCart, setInCart] = useState(false);
     //передаем количество товаров в корзине MainContent
     const handlerQuantity = (cq) =>{
-       cartQuantityCB(cq)                     
+        cartQuantityCB(cq)                     
     }
     Axios.defaults.withCredentials = true;
     useEffect(()=>{
@@ -25,10 +25,9 @@ function NewsPage({cartQuantityCB}){
                 function getArrayOfIdFromCart(){
                     let arrOfLocalStorage = Object.entries(getLocalStorage); //преобразование cart в массив и его перебор с получением id продуктов, которые лежат в корзине
                     arrOfLocalStorage.map((element)=>{
-                        let arr = cartProductsId.push(element[1].id_product)
+                        let arr = cartProductsId.push(element[1].id_product);
                         setCartProductsId(cartProductsId.concat(arr));
                     });
-                    
                 }
                 
                 getArrayOfIdFromCart();

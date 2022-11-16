@@ -428,19 +428,46 @@ input{
     width: 100%;
     /* height: 100vh; */
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;  
+    gap: 30px;
+    /* justify-content: space-between;  */
 }
 .account__block{
     width: 30%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+   height: auto;
 
 }
 .account__info{
-    
+    font-size: 30px;
+}
+.buttons__between{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.exit__button{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    background: rgb(236, 89, 89);
+    color: aliceblue;
+    padding: 13px;
+}
+.orderInfo{
+    width: 40%;
+    height: 500px;
+    background: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.189) 0px 0px 15px;
+}
+.simple__button{
+    padding: 13px;
+    background: rgb(229, 187, 0);
+    color: aliceblue;
 }
 .account__story{
-    width: 70%;
+    width: 60%;
     height: 100vh;
 
 }

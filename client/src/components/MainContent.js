@@ -17,9 +17,7 @@ function MainContent(){
     const handlerQuantity = (q) =>{
         setCq(q)
     }
-    const cartHandlerQuantity = (q) =>{
-        setCq(q)
-    }
+    
     return(
         <div className="main__content">
             <Head cq={cq}/>
@@ -31,7 +29,7 @@ function MainContent(){
                 <Route path='/signup' element={<ModalWindowSignUp />}></Route>
                 <Route path='/account' element={<Account />}></Route>
                 <Route path='/productinfo' element={<ProductInfo />}></Route>
-                <Route path='/cart' element={<Cart cartQuantityCB={cartHandlerQuantity}/>}></Route>
+                <Route path='/cart' element={<Cart cartQuantityCB={handlerQuantity}/>}></Route>
             </Routes>
             
         </div>
