@@ -14,19 +14,17 @@ function Account(){
 
     Axios.defaults.withCredentials = true;
 
-     useEffect(()=>{
+    useEffect(()=>{
         Axios.get('http://localhost:3001/account').then((response)=>{
             if(cookies.get('idUser')){
                 setFio(response.data[0].fio);
                 setTel(response.data[0].tel);
                 setEmail(response.data[0].email);
-                
             }else{
                 setFio('');
                 setTel('');
                 setEmail('');
             }
-            
         },[]);
         Axios.get('http://localhost:3001/getorder').then((response)=>{
             let resArray = response.data;
@@ -38,22 +36,24 @@ function Account(){
                     .replace(/quantity:/gi, " кол-во: ")
                     .replace(/fullPrice:/gi, " цена: ")
                     .replace(/},/gi, "}");
+
                 let productsStrArr = changedStr.split('}');
-                console.log(productsStrArr)
-                productsStrArr.map((element, i) =>{
-                    console.log(element)
-                })
+                const products = productsStrArr.map((product, i) =>{
+                    return(
+                        <p key={i}>{product}</p>
+                    );
+                });
                 return(
                     <div className='orderInfo' key={i}>
                         <p>Номер заказа: {order.id_order}</p>
-                        <p>{changedStr}</p>
+                        {products}
                         <p>Итого: {order.general_price} руб.</p>
                         <p>Дата покупки: {order.date}</p>
                     </div>
                 );
             }));
         });
-     },[]);
+    },[]);
     
     const exit = () =>{
         if(cookies.get('idUser')){
