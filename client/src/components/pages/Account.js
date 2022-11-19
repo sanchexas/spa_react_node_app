@@ -9,6 +9,7 @@ function Account(){
     const [fio, setFio] = useState('sdsdsd');
     const [tel, setTel] = useState('');
     const [email, setEmail] = useState('');
+    const [orders, setOrders] = useState('');
     const redirect = useNavigate();
 
     Axios.defaults.withCredentials = true;
@@ -27,6 +28,31 @@ function Account(){
             }
             
         },[]);
+        Axios.get('http://localhost:3001/getorder').then((response)=>{
+            let resArray = response.data;
+            setOrders(resArray.map((order, i)=>{
+                let orderStr = order.products;
+                let changedStr = orderStr
+                    .replace(/idproduct:/gi, " ID товара: ")
+                    .replace(/title:/gi, "")
+                    .replace(/quantity:/gi, " кол-во: ")
+                    .replace(/fullPrice:/gi, " цена: ")
+                    .replace(/},/gi, "}");
+                let productsStrArr = changedStr.split('}');
+                console.log(productsStrArr)
+                productsStrArr.map((element, i) =>{
+                    console.log(element)
+                })
+                return(
+                    <div className='orderInfo' key={i}>
+                        <p>Номер заказа: {order.id_order}</p>
+                        <p>{changedStr}</p>
+                        <p>Итого: {order.general_price} руб.</p>
+                        <p>Дата покупки: {order.date}</p>
+                    </div>
+                );
+            }));
+        });
      },[]);
     
     const exit = () =>{
@@ -78,8 +104,9 @@ function Account(){
                 </div>
             </div>
             <div className='account__story'>
-                <div className='orderInfo'>
-                    <p>sdsdsd</p>
+                <h2>чеки и заказы: </h2>
+                <div className='account__story__goods'>
+                    {orders}
                 </div>
             </div>
         </div>

@@ -26,9 +26,12 @@ function Cart({cartQuantityCB}){
             delete getCartItems[i].short_description;
             delete getCartItems[i].adress;
             delete getCartItems[i].image;
+            delete getCartItems[i].author_id;
+            delete getCartItems[i].price;
+            delete getCartItems[i].id_product
         }
         let cartItemsToJSON = JSON.stringify(getCartItems);
-        let clearJSONChars = cartItemsToJSON.replace(/[^\d\s:,a-zа-яё]/gi, "");
+        let clearJSONChars = cartItemsToJSON.replace(/[^\d\s:,}a-zа-яё]/gi, "");
         Axios.post("http://localhost:3001/sendorder", {
             products: `${clearJSONChars}`,
             general_price: generalPrice,

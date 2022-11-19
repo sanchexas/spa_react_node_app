@@ -215,6 +215,14 @@ app.post('/sendorder',(req, res)=>{
         }
     });
 });
+
+app.get('/getorder', (req, res)=>{
+    const selectQuery = "SELECT * FROM orders WHERE buyer_id = ?";
+    db.query(selectQuery, req.cookies.idUser, (err, result)=>{
+        console.log(result)
+        res.send(result);
+    });
+});
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")
 });

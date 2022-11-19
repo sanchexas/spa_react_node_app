@@ -435,7 +435,6 @@ input{
 }
 .account__block{
     width: 30%;
-   height: auto;
 
 }
 .account__info{
@@ -456,10 +455,13 @@ input{
     padding: 13px;
 }
 .orderInfo{
+    padding: 10px;
     width: 40%;
-    height: 500px;
+    min-height: 400px;
     background: rgb(255, 255, 255);
     box-shadow: rgba(0, 0, 0, 0.189) 0px 0px 15px;
+    font-family: monospace;
+    font-size: 18px;
 }
 .simple__button{
     padding: 13px;
@@ -467,9 +469,14 @@ input{
     color: aliceblue;
 }
 .account__story{
+    margin-top: 20px;
     width: 60%;
-    height: 100vh;
-
+}
+.account__story__goods{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
 }
 .edit__account__info{
 
