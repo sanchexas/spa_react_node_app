@@ -435,10 +435,25 @@ input{
 }
 .account__block{
     width: 30%;
-
+    
+}
+.search__input{
+    border: none;
+    color: rgb(48, 48, 48);
+    background: rgb(241, 241, 241);
+    width: 100%;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.search__form{
+    width: 50%;
+    display: flex;
 }
 .account__info{
     font-size: 30px;
+    position: sticky;
+    top: 150px;
 }
 .buttons__between{
     display: flex;

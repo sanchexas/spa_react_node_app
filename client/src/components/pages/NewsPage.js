@@ -38,7 +38,7 @@ function NewsPage({cartQuantityCB}){
                                 product.inCart = inCart; // присваивание стиля кнопкам товаров, которые лежат в корзине
                             }
                         })
-                    function addToCart (key) { // ДОБАВЛЯЕМ В КОРЗИНУ
+                    function addToCart () { // ДОБАВЛЯЕМ В КОРЗИНУ
                         let getLocalStorageGeneralPrice = JSON.parse(localStorage.getItem("general_price"));
                         product.quantity = 1;
                         product.fullPrice = product.price;
