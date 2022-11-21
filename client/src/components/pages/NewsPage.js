@@ -1,6 +1,6 @@
 import '../style.css';
 import  Axios  from 'axios';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 function NewsPage({cartQuantityCB, searchArray}){
@@ -19,7 +19,6 @@ function NewsPage({cartQuantityCB, searchArray}){
                 if(!localStorage.getItem("general_price")){
                     localStorage.setItem("general_price", 0);
                 }  
-
                 function getArrayOfIdFromCart(){
                     let arrOfLocalStorage = Object.entries(getLocalStorage); //преобразование cart в массив и его перебор с получением id продуктов, которые лежат в корзине
                     arrOfLocalStorage.map((element)=>{
@@ -51,7 +50,6 @@ function NewsPage({cartQuantityCB, searchArray}){
                             setInCart(false);
                         },100);
                     }
-
                     return (
                         <div className='product__card' key={i}>
                             <Link to={`/productinfo?id=${product.id_product}`} className="product__card__link" key={product.id_product}>
@@ -75,7 +73,6 @@ function NewsPage({cartQuantityCB, searchArray}){
             }
         );
     }, [inCart]);
-
     return(
     // <h1 className="page__title">Новинки</h1>
     <div className="main__products">

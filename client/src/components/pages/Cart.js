@@ -37,12 +37,14 @@ function Cart({cartQuantityCB}){
             general_price: generalPrice,
             buyer_id: cookies.get("idUser"),
             date: dateISOS
-        }).then((response)=>{
+        }).then(()=>{
+        redirect("/");
+
+            window.location.reload();
 
         });
         localStorage.clear("cart");
         localStorage.clear("general_price");
-        redirect("/");
     }
     let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
 
