@@ -237,6 +237,36 @@ app.post('/search', (req, res)=>{
         }
     });
 });
+
+app.post('/review', (req, res)=>{
+    const reviewText = req.body.review;
+    const productId = req.body.product_id;
+    const authorId = req.body.author_id;
+    const insertQuery = "INSERT INTO reviews VALUES (null, ?, ?, ?);";
+    db.query(insertQuery, [reviewText, productId, authorId], (err, result)=>{
+        if(err){
+            res.send({ err: err});
+            console.log({err: err});
+        }
+        if(result){
+            res.send({message: result});
+        }
+    })
+});
+
+app.get('/showreviews', (req, res)=>{
+    let productId = req.query.id;
+    const selectQuery = "SELECT * FROM reviews LEFT JOIN users ON reviews.author_id=users.id_user WHERE product_id=?;";
+    db.query(selectQuery, productId, (err, result)=>{
+        if(err){
+            res.send({ err: err});
+            console.log({err: err});
+        }
+        if(result){
+            res.send({message: result});
+        }
+    });
+});
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")
 });
