@@ -14,15 +14,21 @@ import Head from './Head';
 function MainContent(){
     let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
     const [cq, setCq] = useState(getLocalStorage.length);
+    const [searchArray, setSearchArray] = useState();
     const handlerQuantity = (q) =>{
         setCq(q)
     }
+    const handlerSearch = (searchArray) =>{
+        setSearchArray(searchArray);
+        console.log(searchArray)
+    }
+
     
     return(
         <div className="main__content">
-            <Head cq={cq}/>
+            <Head cq={cq} searchCB={handlerSearch}/>
             <Routes>
-                <Route path='/' index element={<NewsPage cartQuantityCB={handlerQuantity}/>}></Route>
+                <Route path='/' index element={<NewsPage cartQuantityCB={handlerQuantity} searchArray={searchArray}/>}></Route>
                 <Route path='/workshop' element={<Workshop />}></Route>
                 <Route path='/about' element={<About />}></Route>
                 <Route path='/signin' element={<ModalWindow />}></Route>

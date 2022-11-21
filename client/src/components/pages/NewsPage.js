@@ -3,7 +3,7 @@ import  Axios  from 'axios';
 import { Link} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-function NewsPage({cartQuantityCB}){
+function NewsPage({cartQuantityCB, searchArray}){
     const [products, setProducts] = useState([]);
     let [cartProductsId, setCartProductsId] = useState([]);
     const [inCart, setInCart] = useState(false);
@@ -11,13 +11,11 @@ function NewsPage({cartQuantityCB}){
     const handlerQuantity = (cq) =>{
         cartQuantityCB(cq)                     
     }
+    
     Axios.defaults.withCredentials = true;
     useEffect(()=>{
         Axios.get('http://localhost:3001/newspage').then((response)=>{
             let getLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
-            
-            if(response.data.message){
-                let resArray = response.data.message;
                 if(!localStorage.getItem("general_price")){
                     localStorage.setItem("general_price", 0);
                 }  
@@ -29,7 +27,7 @@ function NewsPage({cartQuantityCB}){
                         setCartProductsId(cartProductsId.concat(arr));
                     });
                 }
-                
+                let resArray = response.data.message;
                 getArrayOfIdFromCart();
                 setProducts(resArray.map((product, i) => {  //ВЫВОДИМ ВСЕ ТОВАРЫ ИЗ response
                         cartProductsId.map((cp)=>{
@@ -37,7 +35,7 @@ function NewsPage({cartQuantityCB}){
                                 setInCart(true);
                                 product.inCart = inCart; // присваивание стиля кнопкам товаров, которые лежат в корзине
                             }
-                        })
+                        });
                     function addToCart () { // ДОБАВЛЯЕМ В КОРЗИНУ
                         let getLocalStorageGeneralPrice = JSON.parse(localStorage.getItem("general_price"));
                         product.quantity = 1;
@@ -75,7 +73,7 @@ function NewsPage({cartQuantityCB}){
                     );
                 }));
             }
-        });
+        );
     }, [inCart]);
 
     return(

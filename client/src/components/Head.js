@@ -6,17 +6,20 @@ import  Axios  from 'axios';
 import NewsPage from './pages/NewsPage';
 
 
-function Head({cq}){
+function Head({cq, searchCB}){
     
     Axios.defaults.withCredentials = true;
     const [fio, setFio] = useState('');
-    const [searchReq, setSearchReq] = useState('');
-    function search(){
-        Axios.post('http://localhost:3001/search', {
-            search: searchReq
-        }).then((response)=>{
-            console.log(response)
-        })
+    const [searchReq, setSearchReq] = useState([]);
+    const search = () =>{
+        if(searchReq !== ''){
+            Axios.post('http://localhost:3001/search', {
+                search: searchReq
+            }).then((response)=>{
+                searchCB(response.data.message);
+                // window.location.reload()
+            });
+        }
     }
     useEffect(()=>{
             Axios.get('http://localhost:3001/signin').then((response)=>{
@@ -57,7 +60,7 @@ function Head({cq}){
             </svg> */}
             <div className='search__form'>
                 <input className='search__input' placeholder=' найти' onChange={(event)=>setSearchReq(event.target.value)}></input>
-                <button onClick={()=>search()}>найти</button>
+                <button onClick={search}>найти</button>
             </div>
         
         {regBlock()}

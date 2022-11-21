@@ -235,8 +235,8 @@ app.post('/search', (req, res)=>{
         if(result){
             res.send({message: result});
         }
-    })
-})
+    });
+});
 app.listen(3001, ()=>{
     console.log("сервер работает на порте 3001")
 });
