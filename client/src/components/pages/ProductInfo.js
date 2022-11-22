@@ -54,7 +54,6 @@ const ProductInfo = () =>{
                         </div>
                     );
                 }));
-                
             }
         })
         
