@@ -525,8 +525,8 @@ input{
 }
 .simple__button{
     padding: 13px;
-    background: rgb(255, 196, 0);
-    color: rgb(22, 22, 22);
+    background: rgb(255, 200, 0);
+    color: aliceblue;
 }
 .account__story{
     margin-top: 20px;

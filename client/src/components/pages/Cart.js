@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Axios  from 'axios';
 import Cookies from 'universal-cookie';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import '../style.css';
 
 function Cart({cartQuantityCB}){
@@ -81,8 +81,6 @@ function Cart({cartQuantityCB}){
                 }
                 
             }
-
-
             return(
             <div className='cart__item' key={i}>
                 <div className='cart__image'>
@@ -109,22 +107,40 @@ function Cart({cartQuantityCB}){
         }
     ))
     },[deleteItem, quantity, fullPrice, generalPrice])
-
-    return(
-        <div className='cart'>
-                    <div className='cart__items'>
-                        {products}
-                    </div>
-                    <div className='cart__order__block'>
-                        <div className='cart__order__info'>
-                            <span>Общая сумма: {generalPrice} ₽</span>
-                            <div className='card__button' >
-                                <button onClick={()=> sendOrder()} style={{opacity: "1", width: "100%", height: "50px", fontWeight: "700", fontSize: "20px", letterSpacing: "1px"}}>заказать</button>
-                            </div>
+    if(cookies.get('idUser')){
+        return(
+            <div className='cart'>
+                <div className='cart__items'>
+                    {products}
+                </div>
+                <div className='cart__order__block'>
+                    <div className='cart__order__info'>
+                        <span>Общая сумма: {generalPrice} ₽</span>
+                        <div className='card__button' >
+                            <button onClick={()=> sendOrder()} style={{opacity: "1", width: "100%", height: "50px", fontWeight: "700", fontSize: "20px", letterSpacing: "1px"}}>заказать</button>
                         </div>
                     </div>
                 </div>
-    );
+            </div>
+        );
+    }else{
+        return(
+            <div className='cart'>
+                <div className='cart__items'>
+                    {products}
+                </div>
+                <div className='cart__order__block'>
+                    <div className='cart__order__info'>
+                        <span>Общая сумма: {generalPrice} ₽</span>
+                        <div className='card__button' >
+                            <span>Чтобы сделать заказ, необходимо <Link to="/signin">авторизироваться</Link></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    
 }
 
 export default Cart;
