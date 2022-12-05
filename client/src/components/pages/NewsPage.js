@@ -9,9 +9,8 @@ function NewsPage({cartQuantityCB, searchArray}){
     const [inCart, setInCart] = useState(false);
     //передаем количество товаров в корзине MainContent
     const handlerQuantity = (cq) =>{
-        cartQuantityCB(cq)                     
+        cartQuantityCB(cq)   
     }
-    
     Axios.defaults.withCredentials = true;
     useEffect(()=>{
         Axios.get('http://localhost:3001/newspage').then((response)=>{
@@ -27,6 +26,11 @@ function NewsPage({cartQuantityCB, searchArray}){
                     });
                 }
                 let resArray = response.data.message;
+                if(searchArray !== undefined){
+                    resArray = searchArray;
+                }else if(searchArray == []){
+                    resArray = response.data.message;
+                }
                 getArrayOfIdFromCart();
                 setProducts(resArray.map((product, i) => {  //ВЫВОДИМ ВСЕ ТОВАРЫ ИЗ response
                         cartProductsId.map((cp)=>{
@@ -72,7 +76,7 @@ function NewsPage({cartQuantityCB, searchArray}){
                 }));
             }
         );
-    }, [inCart]);
+    }, [inCart, searchArray]);
     return(
     // <h1 className="page__title">Новинки</h1>
     <div className="main__products">

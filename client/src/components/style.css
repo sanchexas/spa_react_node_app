@@ -418,12 +418,12 @@ button{
     position: relative;
 }
 .cart__icon__button svg{
-    position: absolute;
+    position: relative;
 }
 .cart__counter{
     position: absolute;
     left: 35px;
-    top: -7px;
+    top: 5px;
     width: 15px;
     height: 15px;
     background: rgb(255, 196, 0);

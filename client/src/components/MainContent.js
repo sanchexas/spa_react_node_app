@@ -20,7 +20,6 @@ function MainContent(){
     }
     const handlerSearch = (searchArray) =>{
         setSearchArray(searchArray);
-        console.log(searchArray)
     }
 
     

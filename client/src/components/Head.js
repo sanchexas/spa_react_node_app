@@ -11,14 +11,11 @@ function Head({cq, searchCB}){
     const [fio, setFio] = useState('');
     const [searchReq, setSearchReq] = useState([]);
     const search = () =>{
-        if(searchReq !== ''){
             Axios.post('http://localhost:3001/search', {
                 search: searchReq
             }).then((response)=>{
                 searchCB(response.data.message);
-                // window.location.reload()
             });
-        }
     }
     useEffect(()=>{
             Axios.get('http://localhost:3001/signin').then((response)=>{
