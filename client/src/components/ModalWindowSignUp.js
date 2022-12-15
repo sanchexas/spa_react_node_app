@@ -38,11 +38,11 @@ function ModalWindowSignUp() {
         <div className='modal__center'>
             <div className='modal__content sign__up__form'>
                 <h2>Регистрация</h2>
-                <input type="text" name="fio" onChange={(event)=>{setFio(event.target.value)}} placeholder='фио'/>
-                <input type="email" placeholder='e-mail' name="email" onChange={(event)=>{setEmail(event.target.value)}}/>
-                <input type="tel" placeholder='номер телефона' name="tel" onChange={(event)=>{setTelNum(event.target.value)}}/>
-                <input type="password" placeholder='пароль' name="password" onChange={(event)=>{setPassword(event.target.value)}}/>
-                <input type="password" placeholder='повторите пароль' name="reppassword" onChange={(event)=>{setRepPassword(event.target.value)}}/>
+                <input type="text" name="fio" onChange={(event)=>{setFio(event.target.value)}} placeholder='фио' required/>
+                <input type="email" placeholder='e-mail' name="email" onChange={(event)=>{setEmail(event.target.value)}} required/>
+                <input type="tel" placeholder='номер телефона' name="tel" onChange={(event)=>{setTelNum(event.target.value)}} required/>
+                <input type="password" placeholder='пароль' name="password" onChange={(event)=>{setPassword(event.target.value)}} required/>
+                <input type="password" placeholder='повторите пароль' name="reppassword" onChange={(event)=>{setRepPassword(event.target.value)}} required/>
                 <button className='' onClick={submitSignUpForm} type='submit'>зарегистрироваться</button>
             </div>
         </div>
